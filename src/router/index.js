@@ -11,9 +11,9 @@ Vue.use(Router);
 // const PostEditView = () => import('@/views/PostEditView.vue');
 // const UserListView = () => import('@/views/UserListView.vue');
 // const UserEditView = () => import('@/views/UserEditView.vue');
-// const LoginView = () => import('.@/views/LoginView.vue');
+const LoginView = () => import('@/views/LoginView.vue');
 // const SignupView = () => import('@/views/SignupView.vue');
-// const NotFoundView = () => import('@/views/NotFoundView.vue');
+const NotFoundView = () => import('@/views/NotFoundView.vue');
 const HomeView = () => import('@/views/HomeView.vue');
 
 // const createListView = id => () => import('../views/CreateListView').then(m => m.default(id));
@@ -28,7 +28,7 @@ function createRouter() {
     // scroll to top after change page
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      // { path: '/login', name: 'login', component: LoginView },
+      { path: '/login', name: 'login', component: LoginView },
       // { path: '/signup', name: 'signup', component: SignupView },
 
       // { path: '/users/:page(\\d+)?', name: 'users', component: UserListView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
@@ -37,13 +37,17 @@ function createRouter() {
       // { path: '/posts/:page(\\d+)?', name: 'posts', component: PostListView, meta: { requiresAuth: true } },
       // { path: '/posts/:id(\\d+)/edit', name: 'post-edit', component: PostEditView, meta: { requiresAuth: true } },
       // { path: '/posts/:id(\\d+)/create', name: 'post-create', component: PostCreateView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
-
       // { path: '/', redirect: '/posts' },
       { path: '/', name: 'home', component: HomeView },
-      // { path: '*', name: 'not-found', component: NotFoundView },
+      { path: '*', name: 'not-found', component: NotFoundView },
     ],
   });
 }
+
+// fetch(url).then(data => data.toJson()).then(response => ())
+// setTimeout(() => {
+//   const response = { data: { user: { name: 'Admin' } } };
+// }, 150);
 
 export default createRouter;
 export { createRouter };

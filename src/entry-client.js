@@ -1,49 +1,29 @@
-/*router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const dontRequiresAuth = to.matched.some(record => record.meta.requiresAuth === false);
-  if (!auth.isLoggedIn() && requiresAuth) {
-    return next({
-      name: 'login',
-      query: {
-        redirect: to.fullPath,
-      },
-    });
-  } else if (auth.isLoggedIn() && dontRequiresAuth) {
-    return next({
-      name: 'home',
-    });
-  }
-  const { role } = auth.getUser();
-  if (to.matched.some(record => record.meta.roles && record.meta.roles.indexOf(role) === -1)) {
-    return next({
-      name: 'home',
-    });
-  }
-  return next();
-});*/
-
 import Vue from 'vue';
-import { createApp } from './app';
-// import ProgressBar from './components/ProgressBar.vue'
+import VeeValidate from 'vee-validate';
+
+import { createApp } from '@/app';
+import ProgressBar from '@/components/Layout/ProgressBar.vue';
+import * as filters from '@/utils/filters';
+import * as mixins from '@/utils/mixins';
+import * as hooks from '@/utils/hooks';
 
 // global progress bar
-// const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
-// document.body.appendChild(bar.$el)
+const bar = new Vue(ProgressBar).$mount();
+Vue.prototype.$bar = bar;
+document.body.appendChild(bar.$el);
 
+// TODO: add $bar component to requestService
+
+// register global utility filters.
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
+
+Vue.use(VeeValidate);
+Vue.config.productionTip = false;
+
+// mixin for handling title
+Vue.mixin(mixins.title);
 // a global mixin that calls `asyncData` when a route component's params change
-/*Vue.mixin({
-  beforeRouteUpdate (to, from, next) {
-    const { asyncData } = this.$options
-    if (asyncData) {
-      asyncData({
-        store: this.$store,
-        route: to
-      }).then(next).catch(next)
-    } else {
-      next()
-    }
-  }
-})*/
+Vue.mixin(mixins.beforeRouteUpdate);
 
 const { app, router, store } = createApp();
 
@@ -53,27 +33,9 @@ router.onReady(() => {
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
   // async components are resolved.
-  /*router.beforeResolve((to, from, next) => {
-    const matched = router.getMatchedComponents(to)
-    const prevMatched = router.getMatchedComponents(from)
-    let diffed = false
-    const activated = matched.filter((c, i) => {
-      return diffed || (diffed = (prevMatched[i] !== c))
-    })
-    const asyncDataHooks = activated.map(c => c.asyncData).filter(_ => _)
-    if (!asyncDataHooks.length) {
-      return next()
-    }
-
-    bar.start()
-    Promise.all(asyncDataHooks.map(hook => hook({ store, route: to })))
-      .then(() => {
-        bar.finish()
-        next()
-      })
-      .catch(next)
-  })*/
+  router.beforeResolve(hooks.handlingAsyncData(router, store, bar));
+  router.beforeEach(hooks.authMiddleware());
 
   // actually mount to DOM
-  app.$mount('#app')
+  app.$mount('#app');
 });

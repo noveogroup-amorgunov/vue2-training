@@ -30,11 +30,11 @@ const types = {
   FETCH_CURRENT_USER_FAILURE: '@@auth/FETCH_CURRENT_USER_FAILURE',
 };
 
-const mutation = {
+const mutations = {
   /**
    * Login mutations group
    */
-  [types.LOGIN](state) {
+  [types.LOGIN_REQUEST](state) {
     state.pending = true;
   },
   [types.LOGIN_SUCCESS](state) {
@@ -83,15 +83,18 @@ const mutation = {
 const actions = {
   login({ commit, dispatch }, credentials) {
     commit(types.LOGIN_REQUEST);
+    console.log(credentials);
 
-    authApi.login(
-      credentials,
+    return authApi.login(credentials).then(
       (token) => {
         authService.login(token);
         commit(types.LOGIN_SUCCESS);
         dispatch('getCurrentUser');
       },
-      err => commit(types.LOGIN_FAILED, { err }),
+      (err) => {
+        commit(types.LOGIN_FAILURE, { err });
+        throw err;
+      },
     );
   },
 
@@ -137,7 +140,7 @@ export default {
   namespaced: true,
   state: initialState,
   getters,
-  mutation,
+  mutations,
   actions,
 };
 

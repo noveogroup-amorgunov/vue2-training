@@ -1,12 +1,4 @@
-const config = {
-  ui: {
-    MAX_NOTIFICATIONS_COUNT: 4,
-    NOTIFICATION_TIMEOUT: 5000,
-  },
-  userRoles: {
-
-  },
-};
+export const { API_APP_KEY, API_ENDPOINT } = process.env;
 
 export const userRoles = {
   ADMIN: 'admin',

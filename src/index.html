@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>{{ title }}</title>
     <meta charset="utf-8">
-    <title>vuex shopping cart example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <style>
+      #skip a {  position:absolute;  left:-10000px;  top:auto;  width:1px;  height:1px;  overflow:hidden;  }
+      #skip a:focus {  position:static;  width:auto;  height:auto;  }
+    </style>
   </head>
   <body>
     <div id="app"></div>
