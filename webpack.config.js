@@ -1,13 +1,13 @@
-const path = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
-const publicFolder = path.resolve(__dirname, 'dist');
-const srcFolder = path.resolve(__dirname, 'src');
-const projectFolder = path.resolve(__dirname);
+const publicFolder = resolve(__dirname, 'dist');
+const srcFolder = resolve(__dirname, 'src');
+const projectFolder = resolve(__dirname);
 
 module.exports = {
   entry: [
@@ -79,10 +79,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(srcFolder, 'index.html'),
+      template: resolve(srcFolder, 'index.html'),
     }),
     new Dotenv({
-      path: path.resolve(projectFolder, '.env'),
+      path: resolve(projectFolder, '.env'),
       safe: true,
     }),
   ],

@@ -13,6 +13,10 @@ class Auth {
     return this.user;
   }
 
+  isAdmin() {
+    return this.user.role === 'ADMIN';
+  }
+
   login(token) {
     this.token = token;
     localStorage.setItem('token', token);
