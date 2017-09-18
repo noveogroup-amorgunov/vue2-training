@@ -2,8 +2,9 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+// const Dotenv = require('dotenv-webpack');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
+require('dotenv-extended').load();
 
 const publicFolder = resolve(__dirname, 'dist');
 const srcFolder = resolve(__dirname, 'src');
@@ -13,6 +14,7 @@ module.exports = {
   entry: [
     'babel-polyfill',
     './src/entry-client.js',
+    './src/stylesheets/app.scss',
   ],
   output: {
     filename: 'bundle.js',
@@ -44,6 +46,13 @@ module.exports = {
           },
           // other vue-loader options go here
         },
+      },
+      {
+        test: /\.s?css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{ loader: 'css-loader' }, { loader: 'sass-loader', options: { sourceMap: true } }],
+        }),
       },
       {
         test: /\.js$/,
@@ -81,9 +90,17 @@ module.exports = {
       inject: true,
       template: resolve(srcFolder, 'index.html'),
     }),
-    new Dotenv({
-      path: resolve(projectFolder, '.env'),
-      safe: true,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        API_URL: JSON.stringify(process.env.API_URL),
+        APP_KEY: JSON.stringify(process.env.APP_KEY),
+      },
+    }),
+    new ExtractTextPlugin({
+      filename: process.env.NODE_ENV !== 'production' ? '[hash].styles.css' : '[hash].style.min.css',
+      allChunks: true,
+      disable: process.env.NODE_ENV === 'development',
     }),
   ],
   devtool: '#eval-source-map',
@@ -93,11 +110,6 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"',
-      },
-    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {

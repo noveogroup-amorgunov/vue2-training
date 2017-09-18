@@ -29,7 +29,7 @@ function createRouter() {
     scrollBehavior: () => ({ y: 0 }),
     routes: [
       { path: '/login', name: 'login', component: LoginView },
-      { path: '/signup', name: 'signup', component: SignupView, meta: { requiresAuth: true } },
+      { path: '/signup', name: 'signup', component: SignupView, meta: { requiresAuth2: true } },
 
       // { path: '/users/:page(\\d+)?', name: 'users', component: UserListView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
       // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },

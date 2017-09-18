@@ -19,6 +19,7 @@ export const title = {
 
 export const beforeRouteUpdate = {
   beforeRouteUpdate(to, from, next) {
+    console.log('beforeRouteUpdate mixin');
     const { asyncData } = this.$options;
     if (asyncData) {
       asyncData({

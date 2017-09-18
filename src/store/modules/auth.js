@@ -67,7 +67,7 @@ const mutations = {
   /**
    * Fetch current user
    */
-  [types.FETCH_CURRENT_USER](state) {
+  [types.FETCH_CURRENT_USER_REQUEST](state) {
     state.loading = true;
   },
   [types.FETCH_CURRENT_USER_SUCCESS](state, { user }) {
@@ -85,8 +85,8 @@ const actions = {
     commit(types.LOGIN_REQUEST);
 
     return authApi.login(credentials).then(
-      (token) => {
-        authService.login(token);
+      (data) => {
+        authService.login(data.token);
         commit(types.LOGIN_SUCCESS);
         dispatch('getCurrentUser');
       },
@@ -117,16 +117,15 @@ const actions = {
   },
 
   getCurrentUser({ commit, dispatch, state }) {
-    console.log('getCurrentUser');
     if (!state.isLoggedIn) {
       return;
     }
 
     commit(types.FETCH_CURRENT_USER_REQUEST);
-    authApi.currentUser(
-      (user) => {
-        authService.setUser(user);
-        commit(types.FETCH_CURRENT_USER_SUCCESS);
+    authApi.currentUser().then(
+      (data) => {
+        authService.setUser(data.user);
+        commit(types.FETCH_CURRENT_USER_SUCCESS, { user: data.user });
       },
       (err) => {
         commit(types.FETCH_CURRENT_USER_FAILURE, { err });

@@ -36,6 +36,7 @@
            <div class="control">
                 <button
                   type="reset"
+                  @click="errors.clear()"
                   class="button is-light">
                   Cancel
                 </button>
@@ -73,22 +74,13 @@
       ...mapActions('auth', ['login']),
       async submitForm() {
         try {
-          // setTimeout(() => this.$bar.finish(), 3000);
-          // await validationService.validateForm(this);
-          // component.errors.clear();
-          this.$validator.validateAll();
-          if (!this.errors.any()) {
+          if (await this.$validator.validateAll()) {
             this.$bar.start();
             await this.login(this.credentials);
-            
             this.$router.push({ name: 'home' });
           }
         } catch(err) {
-          console.dir(err);
-          console.log('ADD ERRORS!');
-          
-          // this.$bar.finish();
-          // validationService.addErrors(err, this)
+          this.errors.add('common', err.errors);
         } finally {
           this.$bar.finish();
         }
