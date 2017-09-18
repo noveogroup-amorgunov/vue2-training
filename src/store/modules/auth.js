@@ -5,29 +5,29 @@ import authService from '@/services/auth';
 const initialState = {
   isLoggedIn: authService.isLoggedIn(),
   currentUser: authService.getUser(),
-  pending: false,
+  loading: false,
 };
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
   currentUser: state => state.currentUser,
-  pending: state => state.pending,
+  loading: state => state.loading,
 };
 
 const types = {
-  LOGIN_REQUEST: '@@auth/LOGIN_REQUEST',
-  LOGIN_SUCCESS: '@@auth/LOGIN_SUCCESS',
-  LOGIN_FAILURE: '@@auth/LOGIN_FAILURE',
+  LOGIN_REQUEST: 'LOGIN_REQUEST',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FAILURE: 'LOGIN_FAILURE',
 
-  SIGNUP_REQUEST: '@@auth/SIGNUP_REQUEST',
-  SIGNUP_SUCCESS: '@@auth/SIGNUP_SUCCESS',
-  SIGNUP_FAILURE: '@@auth/SIGNUP_FAILURE',
+  SIGNUP_REQUEST: 'SIGNUP_REQUEST',
+  SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
+  SIGNUP_FAILURE: 'SIGNUP_FAILURE',
 
-  LOGOUT: '@@auth/LOGOUT',
+  LOGOUT: 'LOGOUT',
 
-  FETCH_CURRENT_USER_REQUEST: '@@auth/FETCH_CURRENT_USER_REQUEST',
-  FETCH_CURRENT_USER_SUCCESS: '@@auth/FETCH_CURRENT_USER_SUCCESS',
-  FETCH_CURRENT_USER_FAILURE: '@@auth/FETCH_CURRENT_USER_FAILURE',
+  FETCH_CURRENT_USER_REQUEST: 'FETCH_CURRENT_USER_REQUEST',
+  FETCH_CURRENT_USER_SUCCESS: 'FETCH_CURRENT_USER_SUCCESS',
+  FETCH_CURRENT_USER_FAILURE: 'FETCH_CURRENT_USER_FAILURE',
 };
 
 const mutations = {
@@ -35,55 +35,54 @@ const mutations = {
    * Login mutations group
    */
   [types.LOGIN_REQUEST](state) {
-    state.pending = true;
+    state.loading = true;
   },
   [types.LOGIN_SUCCESS](state) {
     state.isLoggedIn = true;
   },
   [types.LOGIN_FAILURE](state) {
     state.isLoggedIn = false;
-    state.pending = false;
+    state.loading = false;
   },
   /**
    * Registration mutations group
    */
   [types.REGISTRATION](state) {
-    state.pending = true;
+    state.loading = true;
   },
   [types.REGISTRATION_SUCCESS](state) {
     state.isLoggedIn = true;
   },
   [types.REGISTRATION_FAILURE](state) {
     state.isLoggedIn = false;
-    state.pending = false;
+    state.loading = false;
   },
   /**
    * Logout mutation
    */
   [types.LOGOUT](state) {
     state.isLoggedIn = false;
-    state.pending = false;
+    state.loading = false;
   },
   /**
    * Fetch current user
    */
   [types.FETCH_CURRENT_USER](state) {
-    state.pending = true;
+    state.loading = true;
   },
   [types.FETCH_CURRENT_USER_SUCCESS](state, { user }) {
     state.currentUser = user;
-    state.pending = false;
+    state.loading = false;
   },
   [types.FETCH_CURRENT_USER_FAILURE](state) {
     state.currentUser = {};
-    state.pending = false;
+    state.loading = false;
   },
 };
 
 const actions = {
   login({ commit, dispatch }, credentials) {
     commit(types.LOGIN_REQUEST);
-    console.log(credentials);
 
     return authApi.login(credentials).then(
       (token) => {
@@ -118,6 +117,7 @@ const actions = {
   },
 
   getCurrentUser({ commit, dispatch, state }) {
+    console.log('getCurrentUser');
     if (!state.isLoggedIn) {
       return;
     }

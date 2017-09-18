@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <header-nav />
-    <transition name="fade" mode="out-in">
-      <router-view class="view"></router-view>
-    </transition>
+    <main class="content">
+      <transition name="fade" mode="out-in">
+        <router-view class="view"></router-view>
+      </transition>
+    </main>
+    <footer>Sticky foooooter!</footer>
   </div>
 </template>
 
@@ -24,5 +27,34 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  height: 100%;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding: var(--space) var(--space) 0;
+  width: 100%;
+}
+.content::after {
+  content: '\00a0'; /* &nbsp; */
+  display: block;
+  margin-top: var(--space);
+  height: 0px;
+  visibility: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 </style>

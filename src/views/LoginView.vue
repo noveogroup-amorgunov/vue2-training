@@ -1,30 +1,33 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1>Login form</h1>
     <form>
-        <input-text
-            name="email"
-            placeholder="Email"
-            validateRules="required|email"
-            :showErrors="submitted"
-            @input-changed="inputChanged"
-            iconClass="fa-envelope">
-        </input-text>
-
-        <input-text
-            name="password"
-            placeholder="Password"
-            validateRules="required|min:3"
-            :showErrors="submitted"
-            @input-changed="inputChanged"
-            iconClass="fa-lock">
-        </input-text>
+      <form-input
+        name="email"
+        label="Email"
+        v-validate="'required|email'"
+        data-vv-value-path="innerValue"
+        v-model="credentials.email"
+        :has-error="errors.has('email')"
+        :error-text="errors.first('email')"
+        placeholder="Email" />
+        
+      <form-input
+        type="password"
+        name="password"
+        label="Password"
+        v-validate="'required|min:3'"
+        data-vv-value-path="innerValue"
+        v-model="credentials.password"
+        :has-error="errors.has('password')"
+        :error-text="errors.first('password')"
+        placeholder="Password" />
 
         <div class="field is-grouped is-grouped-centered">
             <div class="control">
                 <button
-                  :disabled="pending"
-                  :class="{ 'is-loading': pending }"
+                  :disabled="loading"
+                  :class="{ 'is-loading': loading }"
                   class="button is-primary"
                   @click.prevent="submitForm()">
                   Login
@@ -39,7 +42,7 @@
             </div>
         </div>
         <p
-          v-show="submitted && errors.has('common')"
+          v-show="errors.has('common')"
           class="help is-danger">
           {{ errors.first('common') }}
         </p>
@@ -49,46 +52,45 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import InputText from '@/components/Form/InputText.vue';
+  import FormInput from '@/components/Form/FormInput.vue';
   import validationService from '@/services/validation';
 
   export default {
     title: 'Login page',
-    components: { InputText },
+    components: { FormInput },
     data() {
       return {
-        form: {
+        credentials: {
           email: '',
           password: '',
         },
-        submitted: false,
       };
     },
     computed: {
-      ...mapGetters('auth', ['pending']),
+      ...mapGetters('auth', ['loading']),
     },
     methods: {
       ...mapActions('auth', ['login']),
-      inputChanged({ name, value }) {
-        this.form[name] = value;
-      },
       async submitForm() {
         try {
-
-          // this.$bar.start();
           // setTimeout(() => this.$bar.finish(), 3000);
-
-          this.submitted = true;
-          const valid = await validationService.isValidForm(this);
-          console.log(`VALID FORM: ${valid}!`);
-
-          // console.log();
-          // await this.$store.dispatch('auth/login', this.form);
-          await this.login(this.form);
-          // this.$router.push({ name: 'home' });
+          // await validationService.validateForm(this);
+          // component.errors.clear();
+          this.$validator.validateAll();
+          if (!this.errors.any()) {
+            this.$bar.start();
+            await this.login(this.credentials);
+            
+            this.$router.push({ name: 'home' });
+          }
         } catch(err) {
+          console.dir(err);
           console.log('ADD ERRORS!');
-          validationService.addErrors(err, this)
+          
+          // this.$bar.finish();
+          // validationService.addErrors(err, this)
+        } finally {
+          this.$bar.finish();
         }
       },
     },

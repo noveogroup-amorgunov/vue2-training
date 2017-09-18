@@ -18,6 +18,7 @@ document.body.appendChild(bar.$el);
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(VeeValidate);
+
 Vue.config.productionTip = false;
 
 // mixin for handling title

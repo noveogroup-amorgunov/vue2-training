@@ -12,7 +12,7 @@ export const title = {
   mounted() {
     const pageTitle = getTitle(this);
     if (pageTitle) {
-      document.title = `Vue HN 2.0 | ${pageTitle}`;
+      document.title = `Vue training | ${pageTitle}`;
     }
   },
 };

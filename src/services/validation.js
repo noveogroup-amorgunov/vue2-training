@@ -1,9 +1,4 @@
-const messages = {
-  'validation.required': 'This field is required',
-  'validation.email': 'This field should be correct email',
-  'validation.unique': 'This field should be unique',
-  'authenticate.credentials_invalid': 'Email or password are invalid',
-};
+
 
 export default {
   addErrors(err, component) {
@@ -19,24 +14,5 @@ export default {
       });
     }
     */
-  },
-  async isValidForm(component) {
-    let valid = true;
-    component.errors.clear();
-
-    for (const child of component.$children) {
-      // console.log(child.errors);
-      if (child.errors) {
-        child.errors.clear();
-        valid = await child.$validator.validateAll() && valid;
-      }
-    }
-
-    console.log(`valid: ${valid}`);
-
-    if (!valid) {
-      throw new Error('Validation error');
-    }
-    return valid;
   },
 };

@@ -1,10 +1,12 @@
 import authService from '@/services/auth';
 
 export const authMiddleware = () => (to, from, next) => {
+  console.log('auth middleware');
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const dontRequiresAuth = to.matched.some(record => record.meta.requiresAuth === false);
 
   if (!authService.isLoggedIn() && requiresAuth) {
+    console.log('redirect to login');
     return next({
       name: 'login',
       query: {
@@ -26,6 +28,7 @@ export const authMiddleware = () => (to, from, next) => {
 };
 
 export const handlingAsyncData = (router, store, bar) => (to, from, next) => {
+  console.log('handlingAsyncData');
   const matched = router.getMatchedComponents(to);
   const prevMatched = router.getMatchedComponents(from);
   let diffed = false;

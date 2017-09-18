@@ -2,7 +2,7 @@
   <div class="field">
     <div class="control" :class="{ 'has-icons-left': iconClass }">
       <input
-        v-if="name == 'password'"
+        v-if="type == 'password'"
         type="password"
         class="input"
         :class="{ 'is-danger': hasErrors }"

@@ -12,7 +12,7 @@ Vue.use(Router);
 // const UserListView = () => import('@/views/UserListView.vue');
 // const UserEditView = () => import('@/views/UserEditView.vue');
 const LoginView = () => import('@/views/LoginView.vue');
-// const SignupView = () => import('@/views/SignupView.vue');
+const SignupView = () => import('@/views/SignupView.vue');
 const NotFoundView = () => import('@/views/NotFoundView.vue');
 const HomeView = () => import('@/views/HomeView.vue');
 
@@ -29,7 +29,7 @@ function createRouter() {
     scrollBehavior: () => ({ y: 0 }),
     routes: [
       { path: '/login', name: 'login', component: LoginView },
-      // { path: '/signup', name: 'signup', component: SignupView },
+      { path: '/signup', name: 'signup', component: SignupView, meta: { requiresAuth: true } },
 
       // { path: '/users/:page(\\d+)?', name: 'users', component: UserListView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
       // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
