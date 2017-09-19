@@ -5,22 +5,21 @@
       <img class="logo" src="../../../public/logo-48.png" alt="logo">
     </router-link>
     <span>
-      Navigation: 
       <template v-if="!isLoggedIn">
         <router-link to="/login">Login</router-link>
         <router-link to="/signup">Signup</router-link>
       </template>  
       <template v-else>
-        <a href="#" @click.prevent="doLogout()">Logout {{currentUser.name}}</a>
+        Hello, {{currentUser.name}}
+        <a href="#" @click.prevent="doLogout()">Logout</a>
         <router-link to="/posts">Posts</router-link>
+        <router-link to="/users">Users</router-link>
         <template v-if="isAdmin">
-          <router-link to="/login">Users</router-link>
-          <router-link to="/signup">Create post</router-link>
         </template>  
       </template>
-      <router-link to="/show">Show</router-link>
+      <!--router-link to="/show">Show</router-link>
       <router-link to="/ask">Ask</router-link>
-      <router-link to="/job">Jobs</router-link>
+      <router-link to="/job">Jobs</router-link-->
     </span>
   </header>
 </template>

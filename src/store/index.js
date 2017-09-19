@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
 
 import auth from './modules/auth';
+import user from './modules/user';
 
 Vue.use(Vuex);
 
@@ -23,7 +24,7 @@ export function createStore() {
         job: [],
       },
     },
-    modules: { auth /*, post, collection, ui*/ },
+    modules: { auth, user /*, post, collection, ui*/ },
     // actions,
     // mutations,
     // getters,

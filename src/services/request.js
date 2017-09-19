@@ -14,10 +14,19 @@ function send(config) {
     (responseWithError) => {
       // console.log(responseWithError.response);
       const error = new Error();
+      error.errors = [];
       try {
-        error.errors = errorMessages[responseWithError.response.data.errors] || errorMessages.unknownServerError;
+        const responseErr = responseWithError.response.data.errors;
+
+        if (typeof responseErr === 'string') {
+          error.errors.push({ key: 'common', message: errorMessages[responseErr] });
+        } else {
+          Object.keys(responseErr).forEach((key) => {
+            error.errors.push({ key, message: errorMessages[responseErr[key]] });
+          });
+        }
       } catch (err) {
-        error.errors = errorMessages.unknownServerError;
+        error.errors.push({ key: 'common', message: errorMessages.unknownServerError });
       }
 
       throw error;

@@ -97,14 +97,14 @@ const actions = {
     );
   },
 
-  register({ commit, dispatch }, credentials) {
+  register({ commit }, credentials) {
     commit(types.SIGNUP_REQUEST);
 
     return authApi.register(credentials).then(
       (data) => {
         authService.login(data.token);
+        authService.setUser(data.user);
         commit(types.SIGNUP_SUCCESS);
-        dispatch('getCurrentUser');
       },
       (err) => {
         commit(types.SIGNUP_FAILURE, { err });

@@ -3,6 +3,8 @@
     <h1>Sign up</h1>
     <div class="grid-form cf">
       <form>
+        <input style="display:none" type="text" name="fakeusernameremembered"/>
+        <input style="display:none" type="password" name="fakepasswordremembered"/>
         <form-input
           name="email"
           label="Email"
@@ -16,7 +18,7 @@
         <form-input
           name="name"
           label="Name"
-          v-validate="'required|min:3'"
+          v-validate="'required|alpha_spaces'"
           data-vv-value-path="innerValue"
           v-model="credentials.name"
           :has-error="errors.has('name')"
@@ -50,7 +52,7 @@
           </button>
           <button
             type="reset"
-            @click="errors.clear()"
+            @click="clearForm()"
             class="button button-warning button-left">
             Cancel
           </button>
@@ -63,7 +65,6 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import FormInput from '@/components/Form/FormInput.vue';
-  import validationService from '@/services/validation';
 
   export default {
     name: 'signup-view',
@@ -83,6 +84,10 @@
     },
     methods: {
       ...mapActions('auth', ['register']),
+      clearForm() {
+        this.errors.clear();
+        Object.keys(this.credentials).forEach(key => this.credentials[key] = '');
+      },
       async submitForm() {
         try {
           if (await this.$validator.validateAll()) {
@@ -91,7 +96,7 @@
             this.$router.push({ name: 'home' });
           }
         } catch(err) {
-          this.errors.add('common', err.errors);
+          err.errors.forEach(error => this.errors.add(error.key, error.message));
         } finally {
           this.$bar.finish();
         }
