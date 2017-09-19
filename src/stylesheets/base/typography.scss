@@ -1,0 +1,68 @@
+body, input, select, textarea, button {
+    font-family: 'Open Sans', 'Arial', 'Helvetica', 'san-serif';
+    //font-smoothing: antialiased;
+    //text-rendering: optimizeLegibility;
+    line-height: $line-height-general;
+    color: $color-general;
+    font-size: $font-size-general;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: $color-ok-text;
+    @include transition (all 0.2s linear);
+    &:hover {
+        color: darken($color-ok-text, 15);
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-regular;
+    color: $color-title;
+    letter-spacing: 0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+h2.t-header-main {
+    @include font-size(29);
+}
+
+h3 {
+    @include font-size(21);
+}
+
+p {
+    @include text-main();
+    line-height: $line-height-general;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1rem;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.t-menu-list {
+    @include text-menulist();
+}
+
+.t-disabled {
+    @include text-disabled();
+}
+
+.t-placeholder {
+    @include text-placeholder();
+}
+
+.t-dropdown {
+    @include text-dropdown();
+}
+
+.t-label {
+    @include text-label();
+}
+
+.t-descrete {
+    @include text-descrete();
+}

@@ -1,0 +1,81 @@
+.grid-2 {
+    position: relative;
+    width: 102%;
+    left: -1%;
+    margin-bottom: 20px;
+    li {
+        float: left;
+        overflow: hidden;
+        width: 50%;
+        padding: 0 1% 2% 1%;
+    }
+}
+
+.grid-3 {
+    position: relative;
+    width: 102%;
+    left: -1%;
+    margin-bottom: 20px;
+    li {
+        float: left;
+        overflow: hidden;
+        width: 33.33333333333333%;
+        padding: 0 1% 2% 1%;
+    }
+}
+
+.grid-5 {
+    position: relative;
+    width: 102%;
+    left: -1%;
+    margin-bottom: 20px;
+    li {
+        float: left;
+        overflow: hidden;
+        width: 20%;
+        padding: 0 1% 2% 1%;
+    }
+}
+
+.grid-form {
+    position: relative;
+    width: 106%;
+    left: -3%;
+    > div {
+        float: left;
+        width: 50%;
+        padding: 0 3%;
+    }
+}
+
+.grid-title {
+    @include text-menulist();
+    display: block;
+}
+
+.grid-sub {
+    @include text-label();
+    display: block;
+    line-height: 1.3;
+}
+
+.grid-icons {
+    li {
+        float: left;
+        margin-right: 2rem;
+        margin-bottom: 2rem;
+        line-height: 1;
+        color: #444444;
+
+    }
+    &.pages li {
+        @include font-size(26);
+    }
+    &.elements li {
+        @include font-size(18);
+    }
+    &.editor li {
+        @include font-size(14);
+        margin-bottom: 0;
+    }
+}
