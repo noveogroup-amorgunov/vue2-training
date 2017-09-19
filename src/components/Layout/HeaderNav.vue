@@ -1,18 +1,27 @@
 <template>
-  <header class="header">
-    <nav class="inner">
-      <router-link to="/" exact><img class="logo" src="../../../public/logo-48.png" alt="logo"></router-link>
+  <header class="layout-header cf">
+    <router-link to="/" exact>
+      <h1>Vue2</h1>
+      <img class="logo" src="../../../public/logo-48.png" alt="logo">
+    </router-link>
+    <span>
+      Navigation: 
       <template v-if="!isLoggedIn">
         <router-link to="/login">Login</router-link>
         <router-link to="/signup">Signup</router-link>
       </template>  
       <template v-else>
         <a href="#" @click.prevent="doLogout()">Logout {{currentUser.name}}</a>
-      </template>  
+        <router-link to="/posts">Posts</router-link>
+        <template v-if="isAdmin">
+          <router-link to="/login">Users</router-link>
+          <router-link to="/signup">Create post</router-link>
+        </template>  
+      </template>
       <router-link to="/show">Show</router-link>
       <router-link to="/ask">Ask</router-link>
       <router-link to="/job">Jobs</router-link>
-    </nav>
+    </span>
   </header>
 </template>
 

@@ -1,22 +1,24 @@
 <template>
-  <div class="form-group row" :class="{ 'has-danger' : errors.has(name) }">
-    <label class="form-control-label" :for="name">{{ label }}</label>
+
+  <div class="form-item" :class="{ 'form-error': hasError }">
+    <label v-if="hasError" class="form-label" :for="name">{{ errorText }}</label>
+    <label v-else class="form-label" :for="name">{{ label }}</label>
 
     <input v-if="type == 'password'"
       type="password"
       v-model="innerValue"
-      :class="{ 'input': 'true', 'is-danger': hasError }"
+      :class="{ 'input': 'true', 'form-input': true }"
       :name="name"
       :placeholder="placeholder ? placeholder : name" />
     <input v-else
       type="text"
       v-model="innerValue"
-      :class="{ 'input': 'true', 'is-danger': hasError }"
+      :class="{ 'input': 'true', 'form-input': true }"
       :name="name"
       :placeholder="placeholder ? placeholder : name" />
-  
-    <div class="form-control-feedback" v-if="hasError">{{ errorText }}</div>
   </div>
+
+
 </template>
 
 <script>

@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <header-nav />
-    <main class="content">
+    <main class="layout-wrapper">
       <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
       </transition>
     </main>
-    <footer>Sticky foooooter!</footer>
+    <footer class="layout-footer">
+      Example created by <a href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
+    </footer>
   </div>
 </template>
 
@@ -24,6 +26,11 @@
     beforeCreate() {
       this.$store.dispatch('auth/getCurrentUser');
     },
+    computed: {
+      year() {
+        return (new Date()).getFullYear();
+      }
+    }
   };
 </script>
 
@@ -36,17 +43,18 @@
   flex-direction: column;
 }
 
-.content {
+.layout-wrapper {
   flex: 1;
 }
 
-.content {
+.layout-wrapper {
   flex: 1 0 auto;
-  padding: var(--space) var(--space) 0;
+  // padding: var(--space) var(--space) 0;
   width: 100%;
+  // margin-top: 60px;
 }
 
-.content::after {
+.layout-wrapper::after {
   content: '\00a0'; /* &nbsp; */
   display: block;
   margin-top: var(--space);

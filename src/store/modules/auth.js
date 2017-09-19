@@ -47,13 +47,13 @@ const mutations = {
   /**
    * Registration mutations group
    */
-  [types.REGISTRATION](state) {
+  [types.SIGNUP_REQUEST](state) {
     state.loading = true;
   },
-  [types.REGISTRATION_SUCCESS](state) {
+  [types.SIGNUP_SUCCESS](state) {
     state.isLoggedIn = true;
   },
-  [types.REGISTRATION_FAILURE](state) {
+  [types.SIGNUP_FAILURE](state) {
     state.isLoggedIn = false;
     state.loading = false;
   },
@@ -97,17 +97,19 @@ const actions = {
     );
   },
 
-  register({ commit, dispatch }, data) {
+  register({ commit, dispatch }, credentials) {
     commit(types.SIGNUP_REQUEST);
 
-    authApi.register(
-      data,
-      (token) => {
-        authService.login(token);
+    return authApi.register(credentials).then(
+      (data) => {
+        authService.login(data.token);
         commit(types.SIGNUP_SUCCESS);
         dispatch('getCurrentUser');
       },
-      err => commit(types.SIGNUP_FAILURE, { err }),
+      (err) => {
+        commit(types.SIGNUP_FAILURE, { err });
+        throw err;
+      },
     );
   },
 
@@ -118,11 +120,11 @@ const actions = {
 
   getCurrentUser({ commit, dispatch, state }) {
     if (!state.isLoggedIn) {
-      return;
+      return null;
     }
 
     commit(types.FETCH_CURRENT_USER_REQUEST);
-    authApi.currentUser().then(
+    return authApi.currentUser().then(
       (data) => {
         authService.setUser(data.user);
         commit(types.FETCH_CURRENT_USER_SUCCESS, { user: data.user });
@@ -130,6 +132,7 @@ const actions = {
       (err) => {
         commit(types.FETCH_CURRENT_USER_FAILURE, { err });
         dispatch('logout');
+        // throw err;
       },
     );
   },

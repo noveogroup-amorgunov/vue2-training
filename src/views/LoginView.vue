@@ -1,53 +1,51 @@
 <template>
   <div>
     <h1>Login form</h1>
-    <form>
-      <form-input
-        name="email"
-        label="Email"
-        v-validate="'required|email'"
-        data-vv-value-path="innerValue"
-        v-model="credentials.email"
-        :has-error="errors.has('email')"
-        :error-text="errors.first('email')"
-        placeholder="Email" />
-        
-      <form-input
-        type="password"
-        name="password"
-        label="Password"
-        v-validate="'required|min:3'"
-        data-vv-value-path="innerValue"
-        v-model="credentials.password"
-        :has-error="errors.has('password')"
-        :error-text="errors.first('password')"
-        placeholder="Password" />
-
-        <div class="field is-grouped is-grouped-centered">
-            <div class="control">
-                <button
-                  :disabled="loading"
-                  :class="{ 'is-loading': loading }"
-                  class="button is-primary"
-                  @click.prevent="submitForm()">
-                  Login
-                </button>
-            </div>
-           <div class="control">
-                <button
-                  type="reset"
-                  @click="errors.clear()"
-                  class="button is-light">
-                  Cancel
-                </button>
-            </div>
+    <div class="grid-form cf">
+      <form>
+        <form-input
+          name="email"
+          label="Email"
+          v-validate="'required|email'"
+          data-vv-value-path="innerValue"
+          v-model="credentials.email"
+          :has-error="errors.has('email')"
+          :error-text="errors.first('email')"
+          placeholder="Email" />
+          
+        <form-input
+          type="password"
+          name="password"
+          label="Password"
+          v-validate="'required|min:3'"
+          data-vv-value-path="innerValue"
+          v-model="credentials.password"
+          :has-error="errors.has('password')"
+          :error-text="errors.first('password')"
+          placeholder="Password" />
+        <div :class="{ 'form-error': errors.has('common') }">
+          <p v-show="errors.has('common')" class="form-label">
+            {{ errors.first('common') }}
+          </p>
         </div>
-        <p
-          v-show="errors.has('common')"
-          class="help is-danger">
-          {{ errors.first('common') }}
-        </p>
-    </form>
+
+        <div class="form-buttons">
+          <button
+            :disabled="loading"
+            class="button button-left"
+            :class="{ 'button-disabled': loading, 'button-general': !loading }"
+            @click.prevent="submitForm()">
+            Login
+          </button>
+          <button
+            type="reset"
+            @click="errors.clear()"
+            class="button button-warning button-left">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
