@@ -2,17 +2,43 @@
 
 > A Vue test
 
-## Build Setup
+## todolist
 
-``` bash
+- post and app store modules
+- modal popup for delete items
+- users list
+- users editing/deleting
+- post list
+- post likes
+- post editing/deleting
+- grid component
+- pagination component
+- fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded
+- fix path resolve for visual code
+- remove transition options in css
+
+## Instalation
+
+- Create app key in http://rest-api.noveogroup.com.
+- Create `.env` file and edit it:
+
+```bash
+$ cp .env.defaults .env
+$ nano .env # add APP_KEY to this file
+```
+- Install npm dependencies:
+
+```bash
 # install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+$ npm install
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Usage
+
+``` bash
+# serve with hot reload at localhost:8081
+$ npm run dev
+
+# build for production with minification
+$ npm run build
+```

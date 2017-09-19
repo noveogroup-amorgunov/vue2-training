@@ -18,10 +18,16 @@ function send(config) {
       try {
         const responseErr = responseWithError.response.data.errors;
 
+        /**
+         * Parse server errors
+         */
         if (typeof responseErr === 'string') {
           error.errors.push({ key: 'common', message: errorMessages[responseErr] });
         } else {
           Object.keys(responseErr).forEach((key) => {
+            if (!errorMessages[responseErr[key]]) {
+              console.warn(`Response error ${responseErr[key]} isn't found for key = ${key}`);
+            }
             error.errors.push({ key, message: errorMessages[responseErr[key]] });
           });
         }
@@ -38,8 +44,14 @@ const request = {
   async post(url, data) {
     return send({ url, data, method: 'POST' });
   },
-  async get(url) {
-    return send({ url, method: 'GET' });
+  async get(url, options) {
+    return send({ url, params: options, method: 'GET' });
+  },
+  async put(url, data) {
+    return send({ url, data, method: 'PUT' });
+  },
+  async delete(url) {
+    return send({ url, method: 'DELETE' });
   },
 };
 

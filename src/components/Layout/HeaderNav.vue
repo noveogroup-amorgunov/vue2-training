@@ -17,9 +17,6 @@
         <template v-if="isAdmin">
         </template>  
       </template>
-      <!--router-link to="/show">Show</router-link>
-      <router-link to="/ask">Ask</router-link>
-      <router-link to="/job">Jobs</router-link-->
     </span>
   </header>
 </template>

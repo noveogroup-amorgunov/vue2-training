@@ -3,8 +3,10 @@
     <h1>Login form</h1>
     <div class="grid-form cf">
       <form>
+        <!-- Disabling autocomplete https://stackoverflow.com/a/15917221/6554441 -->
         <input style="display:none" type="text" name="fakeusernameremembered"/>
         <input style="display:none" type="password" name="fakepasswordremembered"/>
+
         <form-input
           name="email"
           label="Email"

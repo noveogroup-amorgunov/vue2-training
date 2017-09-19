@@ -7,7 +7,7 @@
       </transition>
     </main>
     <footer class="layout-footer">
-      Example created by <a href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
+      Example created by <a target="blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
     </footer>
   </div>
 </template>
@@ -51,7 +51,6 @@
   flex: 1 0 auto;
   // padding: var(--space) var(--space) 0;
   width: 100%;
-  // margin-top: 60px;
 }
 
 .layout-wrapper::after {

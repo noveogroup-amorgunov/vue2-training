@@ -41,5 +41,6 @@ module.exports = {
     'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-await-in-loop": ["off"],
+    "object-curly-newline": ["off"],
   }
 };

@@ -16,9 +16,9 @@ export default {
 
   /**
    * @param {Object} data - credentials data + username
-   * @param {String} credentials.email
-   * @param {String} credentials.name
-   * @param {String} credentials.password
+   * @param {String} data.email
+   * @param {String} data.name
+   * @param {String} data.password
    */
   register(data) {
     return request.post('/register', data);

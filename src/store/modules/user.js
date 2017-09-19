@@ -9,7 +9,7 @@ const defaultMetaState = {
 
 // initial state
 const initialState = {
-  users: [],
+  users: [/* [id: number]: User */],
   meta: { ...defaultMetaState },
   loading: false,
 };

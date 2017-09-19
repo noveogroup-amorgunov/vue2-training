@@ -14,6 +14,7 @@
       </div>
       <button type="submit" class="add-button" :class="{'active': isActive}">&plus;</button>
     </form>
+    <p v-show="!users.length"><i>Users hasn't existed yet.</i></p>
     <ul class="add-list">
       <li v-for="item in users" class="cf" :key="item.id">
         <a :href="item.id" class="add-link" target="_blank">{{ item.id }}</a>
@@ -32,15 +33,15 @@
   import { mapGetters } from 'vuex';
 
   export default {
-    name: 'user-list-view',
-    title: 'User list',
+    name: 'users-view',
+    title: 'List of users',
     asyncData ({ store, route: { params: { id }}}) {
-      // special timeout for progress bar testing
-      return Promise.all([store.dispatch('user/getUsers'), new Promise((res) => setTimeout(res, 1e3))]);
+      // special timeout (1 second) for progress bar testing
+      return Promise.all([
+        store.dispatch('user/getUsers'),
+        new Promise((res) => setTimeout(res, 1e3))
+      ]);
     },
-    // beforeCreate() {
-    //   this.$store.dispatch('user/getUsers');
-    // },
     data() {
       return {
         store: '',
