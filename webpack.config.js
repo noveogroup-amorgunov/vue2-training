@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 require('dotenv-extended').load();
 
-const publicFolder = resolve(__dirname, 'dist');
+const publicFolder = resolve(__dirname, 'public');
 const srcFolder = resolve(__dirname, 'src');
 const projectFolder = resolve(__dirname);
 
@@ -60,7 +60,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|woff|ttf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
