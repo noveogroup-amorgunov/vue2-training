@@ -1,40 +1,34 @@
 <template>
   <div>
-    <h1>User list</h1>
-    <form class="add" @submit="additem">
-      <div class="add-fields cf">
-        <div class="form-item">
-          <label class="form-label">Store name</label>
-          <input class="form-input" v-model="store" type="text" placeholder="Beatport, iTunes, etc" />
-        </div>
-        <div class="form-item">
-          <label class="form-label">Store link / URL</label>
-          <input class="form-input" v-model="link" type="text" placeholder="http://tracksite.com/name-of-track" />
-        </div>
-      </div>
-      <button type="submit" class="add-button" :class="{'active': isActive}">&plus;</button>
-    </form>
-    <p v-show="!users.length"><i>Users hasn't existed yet.</i></p>
-    <ul class="add-list">
-      <li v-for="item in users" class="cf" :key="item.id">
-        <a :href="item.id" class="add-link" target="_blank">{{ item.id }}</a>
-        <span class="add-title">{{ item.email }}</span>
-        <span class="add">{{ item.name }} <span class="add-role">({{ item.role }})</span></span>
-        <div class="modal-close add-remove" @click="() => remove(item)">
-          <span></span>
-          <span></span>
-        </div>
-      </li>
-    </ul>
+    <h1>Users</h1>
+    <template v-if="isAdmin">
+      <h2>Add new users</h2>
+      <PostCreateForm />
+    </template>
+    <h2>Users list</h2>
+    <Grid
+      entity-name="User"
+      :data="users"
+      :apiGetEntitiesMethod="loadUsers"
+      :columns="columns" />
   </div>
 </template>
 
+<!--
+ :class="{'active': isActive}"
+@submit="additem"
+ @click="() => remove(item)"
+-->
+
 <script>
   import { mapGetters } from 'vuex';
+  import Grid from '@/components/Grid/Grid.vue';
+  import PostCreateForm from '@/components/Form/PostCreateForm.vue';
 
   export default {
     name: 'users-view',
     title: 'List of users',
+    components: { Grid, PostCreateForm },
     asyncData({ store, route: { params: { id } } }) {
       // special timeout (1 second) for progress bar testing
       return Promise.all([
@@ -44,26 +38,26 @@
     },
     data() {
       return {
-        store: '',
-        link: '',
+        columns: ['id', 'email', 'name', 'role'],
+        columns2: [
+          {
+            key: 'id',
+            width: '20%',
+            onClick() {
+              /* open modal with user editing */
+            },
+          }
+        ]
       };
     },
     computed: {
       ...mapGetters('user', ['users']),
+      ...mapGetters('auth', ['isAdmin']),
     },
     methods: {
-      additem(e) {
-        e.preventDefault();
-        this.items.push({
-          store: this.store,
-          link: this.link,
-        });
-        this.store = '';
-        this.link = '';
+      loadUsers({ page, orderBy, sort } = {}) {
+        return this.$store.dispatch('user/getUsers', { page, orderBy, sort });
       },
-      remove(item) {
-        this.items.$remove(item);
-      }
     }
   };
 </script>

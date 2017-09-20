@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div :class="{'layout-blur': isShowModal}">
+  <div >
+    <div id="app" :class="{'layout-blur': isShowModal}">
       <header-nav />
       <main class="layout-wrapper">
         <transition name="fade" mode="out-in">

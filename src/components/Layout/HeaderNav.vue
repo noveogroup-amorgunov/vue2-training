@@ -2,7 +2,7 @@
   <header class="layout-header cf">
     <router-link to="/" exact>
       <h1>Vue2</h1>
-      <img class="logo" src="../../../public/logo-48.png" alt="logo">
+      <img class="logo" src="/logo-48.png" alt="logo">
     </router-link>
     <span>
       <template v-if="!isLoggedIn">
@@ -23,15 +23,12 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { userRoles } from '@/config';
+
   import { modalTypes } from '@/store/modules/app';
 
   export default {
     computed: {
-      ...mapGetters('auth', ['isLoggedIn', 'currentUser']),
-      isAdmin() {
-        return this.currentUser && this.currentUser.role === userRoles.ADMIN;
-      },
+      ...mapGetters('auth', ['isLoggedIn', 'currentUser', 'isAdmin']),
     },
     methods: {
       ...mapActions('auth', ['logout']),

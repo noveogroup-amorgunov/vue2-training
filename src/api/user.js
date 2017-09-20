@@ -3,9 +3,11 @@ import request from '@/services/request';
 export default {
   /**
    * @param {Number} page
+   * @param {String} sort
+   * @param {String} orderBy
    */
-  users(page = 1) {
-    return request.get('/users', { page });
+  users(page = 1, sort = 'desc', orderBy = 'id') {
+    return request.get('/users', { page, sort, order_by: orderBy });
   },
 
   /**

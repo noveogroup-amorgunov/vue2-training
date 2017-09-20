@@ -1,7 +1,7 @@
 import userApi from '@/api/user';
 
 const defaultMetaState = {
-  order_by: 'id',
+  orderBy: 'id',
   sort: 'desc',
   page: 1,
   total: 0,
@@ -33,24 +33,30 @@ const mutations = {
   [types.FETCH_USERS_REQUEST](state) {
     state.loading = true;
   },
-  [types.FETCH_USERS_SUCCESS](state, { users, meta }) {
+  [types.FETCH_USERS_SUCCESS](state, { data: { users, meta }, page, orderBy, sort }) {
     state.users = users;
-    state.meta = { ...state.meta, ...meta };
+    state.meta = {
+      ...state.meta,
+      ...meta,
+      page,
+      orderBy,
+      sort,
+    };
     state.loading = false;
   },
   [types.FETCH_USERS_FAILURE](state) {
-    state.users = {};
+    state.users = [];
     state.meta = defaultMetaState;
     state.loading = false;
   },
 };
 
 const actions = {
-  getUsers({ commit }, page) {
+  getUsers({ commit }, { page, orderBy, sort } = {}) {
     commit(types.FETCH_USERS_REQUEST);
-    return userApi.users(page).then(
+    return userApi.users(page, sort, orderBy).then(
       (data) => {
-        commit(types.FETCH_USERS_SUCCESS, data);
+        commit(types.FETCH_USERS_SUCCESS, { data, page, orderBy, sort });
       },
       (err) => {
         commit(types.FETCH_USERS_FAILURE, { err });

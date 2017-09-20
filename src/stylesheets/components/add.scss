@@ -1,18 +1,19 @@
 .add {
     position: relative;
+    margin-bottom: 1rem;
 }
 
 .add-fields {
     padding-right: 60px;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     .form-item {
         float: left;
         &:first-child {
-            width: 38%;
+            width: 48%;
             margin-right: 4%;
         }
         &:last-child {
-            width: 58%;
+            width: 48%;
         }
     }
 }

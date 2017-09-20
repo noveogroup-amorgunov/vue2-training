@@ -1,0 +1,37 @@
+.data-grid {
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+    // border-top: 1px solid lighten($color-border, 15);
+
+    th {
+        text-align: left;
+        padding-left: 3px;
+        padding-bottom: 9px;
+    }
+
+    &-item {
+        position: relative;
+        border-bottom: 1px solid lighten($color-border, 15);
+
+        td {
+            padding: 0.3rem 0;
+            position: relative;
+        }
+    }
+
+    &-column {
+        cursor: pointer;
+        i {
+            font-size: 0.7em;
+        }
+        &:hover:not(.active) {
+            opacity: 0.5;
+        }
+        color: #999;
+    }
+
+    .active {
+        color: #222;
+    }
+}

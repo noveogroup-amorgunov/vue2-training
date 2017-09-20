@@ -1,5 +1,6 @@
 import authApi from '@/api/auth';
 import authService from '@/services/auth';
+import { userRoles } from '@/config';
 
 // initial state
 const initialState = {
@@ -12,6 +13,7 @@ const getters = {
   isLoggedIn: state => state.isLoggedIn,
   currentUser: state => state.currentUser,
   loading: state => state.loading,
+  isAdmin: state => state.currentUser && state.currentUser.role === userRoles.ADMIN,
 };
 
 const types = {
