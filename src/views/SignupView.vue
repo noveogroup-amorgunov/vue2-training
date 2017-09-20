@@ -86,7 +86,7 @@
       ...mapActions('auth', ['register']),
       clearForm() {
         this.errors.clear();
-        Object.keys(this.credentials).forEach(key => this.credentials[key] = '');
+        Object.keys(this.credentials).forEach((key) => { this.credentials[key] = ''; });
       },
       async submitForm() {
         try {
@@ -95,18 +95,18 @@
             await this.register(this.credentials);
             this.$router.push({ name: 'home' });
           }
-        } catch(err) {
+        } catch (err) {
           err.errors.forEach(error => this.errors.add(error.key, error.message));
         } finally {
           this.$bar.finish();
         }
       },
     },
-    /*asyncData ({ store, route: { params: { id }}}) {
+    /* asyncData ({ store, route: { params: { id }}}) {
       console.log('Load async data in sign up component!!')
       return new Promise((resolve) => {
           setTimeout(resolve, 2000);
       });
-    },*/
+    }, */
   };
 </script>

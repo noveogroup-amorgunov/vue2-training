@@ -5,13 +5,13 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import { modalTypes } from '@/store/modules/app';
-  import ConfirmLogoutModal from './ConfirmLogoutModal';
-  import ConfirmDeleteEntityModal from './ConfirmDeleteEntityModal';
+  import ConfirmLogoutModal from './ConfirmLogoutModal.vue';
+  import ConfirmDeleteEntityModal from './ConfirmDeleteEntityModal.vue';
 
   const modalsComponents = {
     [modalTypes.CONFIRM_DELETE_ENTITY]: ConfirmDeleteEntityModal,
     [modalTypes.CONFIRM_LOGOUT]: ConfirmLogoutModal,
-  }
+  };
 
   export default {
     props: ['onSubmit'],

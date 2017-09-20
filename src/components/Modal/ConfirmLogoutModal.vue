@@ -7,8 +7,8 @@
 </template>
 
 <script>
-  import BaseModal from './BaseModal';
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
+  import BaseModal from './BaseModal.vue';
 
   export default {
     components: { BaseModal },
@@ -19,6 +19,6 @@
         this.logout();
         this.$router.push({ name: 'home' });
       },
-    }
+    },
   };
 </script>

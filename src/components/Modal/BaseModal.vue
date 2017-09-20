@@ -32,10 +32,10 @@
       ...mapGetters('app', ['isShowModal', 'modal']),
     },
     mounted() {
-  	  document.addEventListener('keydown', this.onKeyDown)
+      document.addEventListener('keydown', this.onKeyDown);
     },
     beforeDestroy() {
-      document.removeEventListener('keydown', this.onKeyDown)
+      document.removeEventListener('keydown', this.onKeyDown);
     },
     methods: {
       ...mapActions('app', ['hideModal']),
@@ -44,11 +44,10 @@
         this.hideModal();
       },
       onKeyDown(e) {
-        console.log('onKeyDown');
-        if (this.isShowModal && e.keyCode == 27) {
+        if (this.isShowModal && e.keyCode === 27) {
           this.hideModal();
         }
-      }
+      },
     },
   };
 </script>

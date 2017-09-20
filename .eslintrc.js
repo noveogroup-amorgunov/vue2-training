@@ -42,5 +42,6 @@ module.exports = {
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "no-await-in-loop": ["off"],
     "object-curly-newline": ["off"],
+    "comma-dangle": ["off"]
   }
 };

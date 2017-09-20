@@ -37,14 +37,8 @@
       ...mapActions('auth', ['logout']),
       ...mapActions('app', ['showModal']),
       doLogout() {
-        this.showModal({
-          modalType: modalTypes.CONFIRM_LOGOUT,
-        });
+        this.showModal({ modalType: modalTypes.CONFIRM_LOGOUT });
       },
-      /*doLogout() {
-        this.logout();
-        this.$router.push({ name: 'home' });
-      },*/
     },
   };
 </script>

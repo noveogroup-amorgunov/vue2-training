@@ -11,5 +11,5 @@
 export default {
   name: 'home-view',
   title: 'Home page',
-}
+};
 </script>

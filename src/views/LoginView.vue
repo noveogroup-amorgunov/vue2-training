@@ -76,7 +76,7 @@
       ...mapActions('auth', ['login']),
       clearForm() {
         this.errors.clear();
-        Object.keys(this.credentials).forEach(key => this.credentials[key] = '');
+        Object.keys(this.credentials).forEach((key) => { this.credentials[key] = ''; });
       },
       async submitForm() {
         try {
@@ -85,7 +85,7 @@
             await this.login(this.credentials);
             this.$router.push({ name: 'home' });
           }
-        } catch(err) {
+        } catch (err) {
           err.errors.forEach(error => this.errors.add(error.key, error.message));
         } finally {
           this.$bar.finish();
@@ -94,8 +94,7 @@
     },
   };
 
-
-/*export default {
+/* export default {
   name: 'user-view',
 
   computed: {
@@ -107,7 +106,6 @@
     return new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
-    
     // store.dispatch('FETCH_USER', { id })
   },
   title () {
@@ -115,5 +113,5 @@
       ? this.user.id
       : 'User not found'
   }
-}*/
+} */
 </script>

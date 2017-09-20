@@ -35,18 +35,18 @@
   export default {
     name: 'users-view',
     title: 'List of users',
-    asyncData ({ store, route: { params: { id }}}) {
+    asyncData({ store, route: { params: { id } } }) {
       // special timeout (1 second) for progress bar testing
       return Promise.all([
         store.dispatch('user/getUsers'),
-        new Promise((res) => setTimeout(res, 1e3))
+        new Promise(res => setTimeout(res, 1e3))
       ]);
     },
     data() {
       return {
         store: '',
         link: '',
-      }
+      };
     },
     computed: {
       ...mapGetters('user', ['users']),

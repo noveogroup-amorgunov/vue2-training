@@ -30,8 +30,8 @@
       ...mapGetters('app', ['isShowModal']),
       year() {
         return (new Date()).getFullYear();
-      }
-    }
+      },
+    },
   };
 </script>
 
