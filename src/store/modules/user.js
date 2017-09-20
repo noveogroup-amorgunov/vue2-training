@@ -24,6 +24,10 @@ const types = {
   FETCH_USERS_REQUEST: 'FETCH_USERS_REQUEST',
   FETCH_USERS_SUCCESS: 'FETCH_USERS_SUCCESS',
   FETCH_USERS_FAILURE: 'FETCH_USERS_FAILURE',
+
+  DELETE_USER_REQUEST: 'DELETE_USER_REQUEST',
+  DELETE_USER_SUCCESS: 'DELETE_USER_SUCCESS',
+  DELETE_USER_FAILURE: 'DELETE_USER_FAILURE',
 };
 
 const mutations = {
@@ -49,6 +53,17 @@ const mutations = {
     state.meta = defaultMetaState;
     state.loading = false;
   },
+
+  [types.DELETE_USER_REQUEST](state) {
+    state.loading = true;
+  },
+  [types.DELETE_USER_SUCCESS](state, id) {
+    state.users = state.users.filter(user => user.id !== id);
+    state.loading = false;
+  },
+  [types.DELETE_USER_FAILURE](state) {
+    state.loading = false;
+  }
 };
 
 const actions = {
@@ -60,6 +75,19 @@ const actions = {
       },
       (err) => {
         commit(types.FETCH_USERS_FAILURE, { err });
+        throw err;
+      },
+    );
+  },
+
+  deleteUser({ commit }, id) {
+    commit(types.DELETE_USER_REQUEST);
+    return userApi.deleteUser(id).then(
+      () => {
+        commit(types.DELETE_USER_SUCCESS, id);
+      },
+      (err) => {
+        commit(types.DELETE_USER_FAILURE, { err });
         throw err;
       },
     );

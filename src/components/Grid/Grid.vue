@@ -13,7 +13,7 @@
               {{ key | capitalize }}&nbsp;<i :class="sortOrders[key] === 'desc' ? 'icon-down' : 'icon-up'"></i>
             </span>
           </th>
-          <th></th>
+          <th v-if="isAdmin"></th>
         </tr>
       </thead>
       <tbody>
@@ -26,8 +26,8 @@
               {{entry[key]}}
             </template>
           </td>
-          <td>
-            <div class="modal-close add-remove">
+          <td v-if="isAdmin">
+            <div class="modal-close add-remove" @click="confirmDelete(entry.id)">
               <span></span>
               <span></span>
             </div>
@@ -39,13 +39,23 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
+  import { modalTypes } from '@/store/modules/app';
+
   export default {
     name: 'data-grid',
     props: {
       columns: Array,
       data: Array,
       entityName: String,
-      apiGetEntitiesMethod: Function,
+      apiGetEntitiesMethod: {
+        type: Function,
+        default: () => () => {},
+      },
+      apiDeleteEntityMethod: {
+        type: Function,
+        default: () => () => {},
+      }
     },
     data() {
       const sortOrders = {};
@@ -56,7 +66,19 @@
         sortOrders,
       };
     },
+    computed: {
+      ...mapGetters('auth', ['isAdmin']),
+    },
     methods: {
+      ...mapActions('app', ['showModal']),
+      confirmDelete(id) {
+        this.showModal({
+          modalType: modalTypes.CONFIRM_DELETE_ENTITY,
+          modalProps: {
+            onSubmit: this.deleteItem.bind(this, id)
+          }
+        });
+      },
       sortBy(key) {
         if (this.sortKey !== key) {
           this.sortOrders[this.sortKey] = 'desc';
@@ -66,11 +88,16 @@
         this.fetchData();
       },
       async fetchData() {
-        // TODO: disable grid, show loader
         this.$bar.start();
         await this.apiGetEntitiesMethod({ orderBy: this.sortKey, sort: this.sortOrders[this.sortKey] });
         this.$bar.finish();
       },
+      async deleteItem(id) {
+        this.$bar.start();
+        await this.apiDeleteEntityMethod(id);
+        await this.fetchData();
+        this.$bar.finish();
+      }
     },
     filters: {
       capitalize(str) {

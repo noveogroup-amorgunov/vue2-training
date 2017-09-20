@@ -15,7 +15,7 @@
           </div>
           <div class="modal-footer cf">
             <button class="button button-warning" @click="hideModal()">Close modal</button>
-            <button v-show="submit" class="button button-action" @click="confirmModal()">{{actionText}}</button>
+            <button v-show="showConfimButtom" class="button button-action" @click="confirmModal()">{{actionText}}</button>
           </div>
         </div>
       </div>
@@ -30,6 +30,10 @@
     props: ['submit', 'actionText'],
     computed: {
       ...mapGetters('app', ['isShowModal', 'modal']),
+      showConfimButtom() {
+        return ((typeof this.submit === 'function')
+          || (this.modal && this.modal.modalProps && typeof this.modal.modalProps.onSubmit === 'function'));
+      }
     },
     mounted() {
       document.addEventListener('keydown', this.onKeyDown);
@@ -40,7 +44,11 @@
     methods: {
       ...mapActions('app', ['hideModal']),
       confirmModal() {
-        this.submit();
+        if (typeof this.submit === 'function') {
+          this.submit();
+        } else if (this.modal && this.modal.modalProps && typeof this.modal.modalProps.onSubmit === 'function') {
+          this.modal.modalProps.onSubmit();
+        }
         this.hideModal();
       },
       onKeyDown(e) {

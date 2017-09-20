@@ -10,6 +10,7 @@
       entity-name="User"
       :data="users"
       :apiGetEntitiesMethod="loadUsers"
+      :apiDeleteEntityMethod="deleteUser"
       :columns="columns" />
   </div>
 </template>
@@ -58,6 +59,9 @@
       loadUsers({ page, orderBy, sort } = {}) {
         return this.$store.dispatch('user/getUsers', { page, orderBy, sort });
       },
+      deleteUser(id) {
+        return this.$store.dispatch('user/deleteUser', id);
+      }
     }
   };
 </script>
