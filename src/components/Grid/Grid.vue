@@ -35,6 +35,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="form-item" v-if="error" :class="{ 'form-error': error }">
+      <label class="form-label">{{ error }}</label>
+    </div>
   </div>
 </template>
 
@@ -64,6 +67,7 @@
       return {
         sortKey: 'id',
         sortOrders,
+        error: '',
       };
     },
     computed: {
@@ -88,15 +92,21 @@
         this.fetchData();
       },
       async fetchData() {
+        this.error = '';
         this.$bar.start();
         await this.apiGetEntitiesMethod({ orderBy: this.sortKey, sort: this.sortOrders[this.sortKey] });
         this.$bar.finish();
       },
       async deleteItem(id) {
-        this.$bar.start();
-        await this.apiDeleteEntityMethod(id);
-        await this.fetchData();
-        this.$bar.finish();
+        try {
+          this.$bar.start();
+          await this.apiDeleteEntityMethod(id);
+          await this.fetchData();
+        } catch (err) {
+          this.error = err.errors.pop().message;
+        } finally {
+          this.$bar.finish();
+        }
       }
     },
     filters: {

@@ -22,6 +22,9 @@ function send(config) {
          * Parse server errors
          */
         if (typeof responseErr === 'string') {
+          if (!errorMessages[responseErr]) {
+            console.warn(`Response error ${responseErr} isn't found`);
+          }
           error.errors.push({ key: 'common', message: errorMessages[responseErr] });
         } else {
           Object.keys(responseErr).forEach((key) => {

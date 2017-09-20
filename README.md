@@ -8,15 +8,15 @@
 - ~remove transition options in css~
 - ~fix eslint validation in .vue for visual code~
 - ~fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded~
+- ~modal popup for delete items~
+- ~users list~
 - post and app store modules
-- modal popup for delete items
-- users list
 - users editing/deleting
 - post list
 - post likes
 - post editing/deleting
-- grid component
-- grid styles component
+- grid component *IN_WORK*
+- grid styles component *IN_WORK*
 - pagination component
 
 ## Instalation
