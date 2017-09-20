@@ -3,12 +3,13 @@
     <h1>Users</h1>
     <template v-if="isAdmin">
       <h2>Add new users</h2>
-      <PostCreateForm />
+      <PostCreateForm @create-user="updateData = !updateData"/>
     </template>
     <h2>Users list</h2>
     <Grid
       entity-name="User"
       :data="users"
+      :update-data="updateData"
       :apiGetEntitiesMethod="loadUsers"
       :apiDeleteEntityMethod="deleteUser"
       :columns="columns" />
@@ -24,12 +25,12 @@
 <script>
   import { mapGetters } from 'vuex';
   import Grid from '@/components/Grid/Grid.vue';
-  import PostCreateForm from '@/components/Form/PostCreateForm.vue';
+  import UserCreateForm from '@/components/Form/UserCreateForm.vue';
 
   export default {
     name: 'users-view',
     title: 'List of users',
-    components: { Grid, PostCreateForm },
+    components: { Grid, UserCreateForm },
     asyncData({ store, route: { params: { id } } }) {
       // special timeout (1 second) for progress bar testing
       return Promise.all([
@@ -39,6 +40,7 @@
     },
     data() {
       return {
+        updateData: false,
         columns: ['id', 'email', 'name', 'role'],
         columns2: [
           {

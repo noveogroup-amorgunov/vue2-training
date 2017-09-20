@@ -20,6 +20,35 @@
         <tr v-for="entry in data" class="data-grid-item" :key="entry.id">
           <td v-for="(key, index) in columns" :key="index">
             <template v-if="key == 'id'">
+              <flyout>
+                <div slot="content" class="settigns cf">
+                  <h2>Page settings</h2>
+                  <input
+                      type="text"
+                      label="Page title"
+                      error="false"
+                      message=""
+                      value="Some page name"
+                      placeholder="Placeholder text">
+                  </input>
+                  <input
+                      type="text"
+                      label="Page URL"
+                      error="false"
+                      message=""
+                      value="some-page-name"
+                      placeholder="Placeholder text">
+                  </input>
+                  <input
+                      type="text"
+                      label="Something else"
+                      error="false"
+                      message=""
+                      value="Update this"
+                      placeholder="Placeholder text">
+                  </input>
+                </div>
+              </flyout>
               <a :href="entry[key]" class="add-link" target="_blank">{{entry[key]}}</a>
             </template>
             <template v-else>
@@ -44,12 +73,15 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import { modalTypes } from '@/store/modules/app';
+  import Flyout from '@/components/Flyout/Flyout.vue';
 
   export default {
     name: 'data-grid',
+    components: { Flyout },
     props: {
       columns: Array,
       data: Array,
+      updateData: Boolean,
       entityName: String,
       apiGetEntitiesMethod: {
         type: Function,
@@ -58,6 +90,11 @@
       apiDeleteEntityMethod: {
         type: Function,
         default: () => () => {},
+      }
+    },
+    watch: {
+      updateData() {
+        this.fetchData();
       }
     },
     data() {
@@ -101,7 +138,7 @@
         try {
           this.$bar.start();
           await this.apiDeleteEntityMethod(id);
-          await this.fetchData();
+          // await this.fetchData();
         } catch (err) {
           this.error = err.errors.pop().message;
         } finally {

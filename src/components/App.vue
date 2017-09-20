@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div id="app" :class="{'layout-blur': isShowModal}">
+    <div id="app" :class="{'layout-blur': isShowModal}" @click="closeDropdowns">
       <header-nav />
       <main class="layout-wrapper">
         <transition name="fade" mode="out-in">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import HeaderNav from '@/components/Layout/HeaderNav.vue';
   import ModalManager from '@/components/Modal/ModalManager.vue';
 
@@ -32,6 +32,9 @@
         return (new Date()).getFullYear();
       },
     },
+    methods: {
+      ...mapActions('app', ['closeDropdowns'])
+    }
   };
 </script>
 

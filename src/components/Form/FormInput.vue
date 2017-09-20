@@ -32,6 +32,7 @@ export default {
       type: String,
       default: '',
     },
+    value: String,
     type: String,
     label: String,
     hasError: Boolean,
@@ -46,6 +47,9 @@ export default {
   watch: {
     innerValue(value) {
       this.$emit('input', value);
+    },
+    value(value) {
+      this.innerValue = value;
     }
   }
 };
