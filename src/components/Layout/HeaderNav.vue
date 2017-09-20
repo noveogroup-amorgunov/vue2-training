@@ -24,6 +24,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import { userRoles } from '@/config';
+  import { modalTypes } from '@/store/modules/app';
 
   export default {
     computed: {
@@ -34,10 +35,16 @@
     },
     methods: {
       ...mapActions('auth', ['logout']),
+      ...mapActions('app', ['showModal']),
       doLogout() {
+        this.showModal({
+          modalType: modalTypes.CONFIRM_LOGOUT,
+        });
+      },
+      /*doLogout() {
         this.logout();
         this.$router.push({ name: 'home' });
-      },
+      },*/
     },
   };
 </script>

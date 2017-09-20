@@ -11,18 +11,18 @@
         Example created by <a target="blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
       </footer>
     </div>
-    <Modal />
+    <ModalManager />
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
   import HeaderNav from '@/components/Layout/HeaderNav.vue';
-  import Modal from '@/components/Modal/BaseModal.vue';
+  import ModalManager from '@/components/Modal/ModalManager.vue';
 
   export default {
     name: 'app',
-    components: { HeaderNav, Modal },
+    components: { HeaderNav, ModalManager },
     beforeCreate() {
       this.$store.dispatch('auth/getCurrentUser');
     },
