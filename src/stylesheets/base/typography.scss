@@ -10,7 +10,7 @@ body, input, select, textarea, button {
 a, a:visited {
     text-decoration: none;
     color: $color-ok-text;
-    @include transition (all 0.2s linear);
+    transition: all 0.2s linear;
     &:hover {
         color: darken($color-ok-text, 15);
     }

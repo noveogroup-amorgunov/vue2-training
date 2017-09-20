@@ -18,7 +18,8 @@ html {
 
 .layout-blur {
     filter: blur(8px);
-    @include transition (all 0.4s linear);
+    -webkit-filter: blur(8px);
+    transition: all 0.4s linear;
 }
 
 .layout-header {
@@ -26,7 +27,7 @@ html {
     background: rgba(255, 255, 255, 0.95);
     position: fixed;
     width: 100%;
-    z-index: 20000;
+    // z-index: 20000;
     h1 {
         @include logo();
         line-height: 60px;

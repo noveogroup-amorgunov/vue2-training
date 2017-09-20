@@ -12,7 +12,7 @@
     text-transform: uppercase;
     border: 2px solid $color-border;
     font-weight: $font-weight-semibold;
-    @include transition (all 0.12s linear);
+    transition: all 0.12s linear;
     float: right;
     &:last-child {
         margin-left: 0;

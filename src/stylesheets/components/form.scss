@@ -24,7 +24,7 @@
     padding: 0 0.7rem;
     @include text-main();
     border: 2px solid $color-border;
-    @include transition (all 0.12s linear);
+    transition: all 0.12s linear;
     &:hover {
         border: 2px solid darken($color-border, 15);
     }
@@ -59,7 +59,7 @@
     border: 2px solid $color-border;
     position: relative;
     z-index: 30;
-    @include transition (all 0.12s linear);
+    transition: all 0.12s linear;
     &:placeholder-shown {
         @include text-placeholder();
     }
@@ -94,11 +94,11 @@
     overflow: scroll;
     z-index: 20;
     max-height: 0px;
-    @include transition (all 0.12s ease-in);
+    transition: all 0.12s ease-in;
     li {
         padding: 0 10px;
         line-height: 36px;
-        @include transition (all 0.06s linear);
+        transition: all 0.06s linear;
         &:hover {
             cursor: pointer;
             background: lighten($color-border, 17);
@@ -143,14 +143,14 @@ label.form-checkbox:hover {
     height: 20px;
     line-height: 20px;
     display: inline-block;
-    @include transition (all 0.12s linear);
+    transition: all 0.12s linear;
     span {
         width: 20px;
         height: 20px;
         display: block;
         background: $color-white;
         border: 2px solid $color-border;
-        @include transition (all 0.12s linear);
+        transition: all 0.12s linear;
         float: left;
         margin-right: 0.5rem;
     }

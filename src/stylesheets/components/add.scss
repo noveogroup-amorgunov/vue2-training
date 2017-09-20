@@ -30,7 +30,7 @@
     line-height: 32px;
     color: $color-disabled;
     font-weight: 100;
-    @include transition (all 0.12s linear);
+    transition: all 0.12s linear;
     &.active {
         border: 2px solid $color-cta-solid;
         color: $color-cta-text;
