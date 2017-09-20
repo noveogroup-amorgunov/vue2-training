@@ -1,32 +1,33 @@
 <template>
   <div id="app">
-    <header-nav />
-    <main class="layout-wrapper">
-      <transition name="fade" mode="out-in">
-        <router-view class="view"></router-view>
-      </transition>
-    </main>
-    <footer class="layout-footer">
-      Example created by <a target="blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
-    </footer>
+    <div :class="{'layout-blur': isShowModal}">
+      <header-nav />
+      <main class="layout-wrapper">
+        <transition name="fade" mode="out-in">
+          <router-view class="view"></router-view>
+        </transition>
+      </main>
+      <footer class="layout-footer">
+        Example created by <a target="blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
+      </footer>
+    </div>
+    <Modal />
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
   import HeaderNav from '@/components/Layout/HeaderNav.vue';
-  // import MainFooter from '@/components/Layout/MainFooter.vue';
-  // import Spinner from '@/components/Layout/Spinner.vue';
-  // import Notification from '@/components/Layout/Notification.vue';
-  // import Modal from '@/components/Modal/Modal.vue';
+  import Modal from '@/components/Modal/BaseModal.vue';
 
   export default {
     name: 'app',
-    components: { HeaderNav },
+    components: { HeaderNav, Modal },
     beforeCreate() {
       this.$store.dispatch('auth/getCurrentUser');
     },
     computed: {
+      ...mapGetters('app', ['isShowModal']),
       year() {
         return (new Date()).getFullYear();
       }

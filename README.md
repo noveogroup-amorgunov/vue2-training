@@ -12,6 +12,7 @@
 - post likes
 - post editing/deleting
 - grid component
+- grid styles component
 - pagination component
 - fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded
 - fix path resolve for visual code

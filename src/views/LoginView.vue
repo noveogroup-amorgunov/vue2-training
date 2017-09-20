@@ -50,6 +50,7 @@
           </button>
         </div>
       </form>
+      <span @click="showModalAlert()">OPEN MODAL</span>
     </div>
   </div>
 </template>
@@ -57,6 +58,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import FormInput from '@/components/Form/FormInput.vue';
+  import { modalTypes } from '@/store/modules/app';
 
   export default {
     title: 'Login page',
@@ -74,6 +76,12 @@
     },
     methods: {
       ...mapActions('auth', ['login']),
+      ...mapActions('app', ['showModal']),
+      showModalAlert() {
+        this.showModal({
+          modalType: modalTypes.CONFIRM_LOGOUT
+        });
+      },
       clearForm() {
         this.errors.clear();
         Object.keys(this.credentials).forEach(key => this.credentials[key] = '');
