@@ -1,0 +1,170 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 2rem;
+    &.open .dropdown-button {
+        color: $color-ok-text;
+    }
+ }
+
+.dropdown-button {
+    background: none;
+    border: none;
+    padding: 0;
+    @include text-dropdown();
+    transition: all 0.12s linear;
+    &:hover {
+        color: darken($color-dropdown, 20);
+    }
+}
+
+.open > .dropdown-menu,
+.open > .dropdown-flyout {
+    display: block;
+}
+
+.open .dropdown-caret {
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+.dropdown-caret {
+    transition: all 0.1s linear;
+    margin-left: 2px;
+    font-size: 12px;
+}
+
+.dropdown-circle {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 11px;
+    position: relative;
+    border: 2px solid $color-border;
+    top: 3px;
+    margin-right: 2px;
+    &.visible {
+        border: 2px solid $color-cta-solid;
+    }
+    &.hidden {
+        border: 2px solid $color-warning-solid;
+    }
+    &.preview {
+        border: 2px solid $color-general;
+    }
+    &.scheduled {
+        border: 2px solid $color-ok-solid;
+    }
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    display: none;
+    min-width: 160px;
+    margin: 5px 0 0;
+    list-style: none;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    box-shadow: 0px 0px 5px 0px $color-border;
+    line-height: 2.5;
+    background: #fff;
+    li {
+        display: block;
+        padding: 0rem 1.25rem;
+        cursor: pointer;
+        &:hover {
+            background: lighten($color-border, 17);
+        }
+        span {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+.dropdown-settings {
+    font-size: 19px;
+    margin-left: 0;
+    line-height: 1;
+    position: relative;
+    top: 3px;
+    color: $color-label;
+    transition: all 0.1s linear;
+    &:hover {
+        cursor: pointer;
+        color: $color-ok-solid;
+    }
+    .icon-delete {
+        font-size: 21px;
+        transition: all 0.1s linear;
+        top: 4px;
+        &:hover {
+            color: $color-warning-solid;
+        }
+    }
+}
+
+.open .dropdown-settings {
+    color: $color-ok-solid;
+}
+
+.dropdown-flyout {
+    position: absolute;
+    // top: 100%;
+    z-index: 1000;
+    display: none;
+    width: 400px;
+    left: -1.5rem;
+    margin: 15px 0 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px $color-border;
+    background: #fff;
+    padding: 1.5rem;
+    h2 {
+        @include text-menulist();
+        line-height: 1;
+        margin-bottom: 1rem;
+    }
+    .button {
+        margin-top: 0.6rem;
+    }
+}
+
+.dropdown-arrow:before {
+    top: -11px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid rgba(57,70,78,.15);
+    border-style: none double solid;
+    display: block;
+    position: absolute;
+    left: 1.5rem;
+    vertical-align: middle;
+    content: "";
+    width: 0;
+    height: 0;
+}
+
+.dropdown-arrow:after {
+    top: -10px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid #fff;
+    border-style: none double solid;
+    display: block;
+    position: absolute;
+    left: 1.5rem;
+    vertical-align: middle;
+    content: "";
+    width: 0;
+    height: 0;
+}
+
+.dropdown-left .dropdown-menu {
+    right: -0.5rem;
+}
+
+.dropdown-right .dropdown-menu {
+    left: -0.5rem;
+}
