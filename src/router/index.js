@@ -17,7 +17,7 @@ const HomeView = () => import('@/views/HomeView.vue');
 // const PostEditView = () => import('@/views/PostEditView.vue');
 // const UserEditView = () => import('@/views/UserEditView.vue');
 
-function createRouter() {
+export function createRouter() {
   return new Router({
     mode: 'history',
     linkExactActiveClass: 'is-active',
@@ -38,5 +38,8 @@ function createRouter() {
   });
 }
 
+export function addAuthMiddleware(router, authMiddleware) {
+  router.beforeEach(authMiddleware());
+}
+
 export default createRouter;
-export { createRouter };

@@ -19,7 +19,7 @@ Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(VeeValidate);
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
 // mixin for handling title
 Vue.mixin(mixins.title);
@@ -28,15 +28,13 @@ Vue.mixin(mixins.beforeRouteUpdate);
 
 const { app, router, store } = createApp();
 
+// Add router hook for handling asyncData.
+// Doing it after initial route is resolved so that we don't double-fetch
+// the data that we already have. Using router.beforeResolve() so that all
+// async components are resolved.
+router.beforeResolve(hooks.handlingAsyncData(router, store, bar));
+
 // wait until router has resolved all async before hooks and async components...
 router.onReady(() => {
-  // Add router hook for handling asyncData.
-  // Doing it after initial route is resolved so that we don't double-fetch
-  // the data that we already have. Using router.beforeResolve() so that all
-  // async components are resolved.
-  router.beforeResolve(hooks.handlingAsyncData(router, store, bar));
-  router.beforeEach(hooks.authMiddleware());
-
-  // actually mount to DOM
   app.$mount('#app');
 });

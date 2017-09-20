@@ -7,7 +7,7 @@
 - ~modal manager + popup for logout~
 - ~remove transition options in css~
 - ~fix eslint validation in .vue for visual code~
-
+- ~fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded~
 - post and app store modules
 - modal popup for delete items
 - users list
@@ -18,8 +18,6 @@
 - grid component
 - grid styles component
 - pagination component
-- fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded
-- fix path resolve for visual code
 
 ## Instalation
 
