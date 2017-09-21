@@ -3,11 +3,12 @@
     <h1>Users</h1>
     <template v-if="isAdmin">
       <h2>Add new users</h2>
-      <PostCreateForm @create-user="updateData = !updateData"/>
+      <UserCreateForm @create-user="updateData = !updateData"/>
     </template>
     <h2>Users list</h2>
     <Grid
       entity-name="User"
+      :meta="meta"
       :data="users"
       :update-data="updateData"
       :apiGetEntitiesMethod="loadUsers"
@@ -15,12 +16,6 @@
       :columns="columns" />
   </div>
 </template>
-
-<!--
- :class="{'active': isActive}"
-@submit="additem"
- @click="() => remove(item)"
--->
 
 <script>
   import { mapGetters } from 'vuex';
@@ -54,7 +49,7 @@
       };
     },
     computed: {
-      ...mapGetters('user', ['users']),
+      ...mapGetters('user', ['users', 'meta']),
       ...mapGetters('auth', ['isAdmin']),
     },
     methods: {

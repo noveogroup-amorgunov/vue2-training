@@ -10,14 +10,14 @@
 - ~fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded~
 - ~modal popup for delete items~
 - ~users list~
+- ~grid styles component *IN_WORK*~
+- ~grid component *IN_WORK*~
+- ~pagination component~
 - post and app store modules
 - users editing/deleting
 - post list
 - post likes
 - post editing/deleting
-- grid component *IN_WORK*
-- grid styles component *IN_WORK*
-- pagination component
 
 ## Instalation
 

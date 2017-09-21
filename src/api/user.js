@@ -7,7 +7,7 @@ export default {
    * @param {String} orderBy
    */
   users(page = 1, sort = 'desc', orderBy = 'id') {
-    return request.get('/users', { page, sort, order_by: orderBy });
+    return request.get('/users', { page, sort, order_by: orderBy, per_page: 15 });
   },
 
   /**

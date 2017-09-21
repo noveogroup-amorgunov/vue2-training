@@ -2,7 +2,9 @@
   <div :class="{ open: show }">
     <span
       @click="toggle($event)">
-      <span class="dropdown-settings"><i class="icon-settings"></i></span>
+      <slot name="dropdown-button">
+        <span class="dropdown-settings"><i class="icon-settings"></i></span>
+      </slot>
     </span>
     <ul class="dropdown-flyout dropdown-arrow" @click.stop>
       <slot name="content"></slot>
