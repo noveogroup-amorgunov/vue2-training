@@ -13,6 +13,8 @@
       :update-data="updateData"
       :apiGetEntitiesMethod="loadUsers"
       :apiDeleteEntityMethod="deleteUser"
+      :edit-view="editFormComponent"
+      :on-edit-view="() => updateData = !updateData"
       :columns="columns" />
   </div>
 </template>
@@ -21,11 +23,12 @@
   import { mapGetters } from 'vuex';
   import Grid from '@/components/Grid/Grid.vue';
   import UserCreateForm from '@/components/Form/UserCreateForm.vue';
+  import UserEditForm from '@/components/Form/UserEditForm.vue';
 
   export default {
     name: 'users-view',
     title: 'List of users',
-    components: { Grid, UserCreateForm },
+    components: { Grid, UserCreateForm, UserEditForm },
     asyncData({ store, route: { params: { id } } }) {
       // special timeout (1 second) for progress bar testing
       return Promise.all([
@@ -35,6 +38,7 @@
     },
     data() {
       return {
+        editFormComponent: UserEditForm,
         updateData: false,
         columns: ['id', 'email', 'name', 'role'],
         columns2: [

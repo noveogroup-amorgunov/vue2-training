@@ -5,6 +5,8 @@ export const userRoles = {
   USER: 'user',
 };
 
+export const defaultPerPage = 15;
+
 export const errorMessages = {
   unknownServerError: 'Server is unavailable for current moment',
   'validation.required': 'This field is required',

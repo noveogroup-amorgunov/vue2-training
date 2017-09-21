@@ -42,13 +42,23 @@
       errorText: String,
       options: Array,
       onChange: Function,
+      defaultSelectedValue: String,
     },
     data() {
-      return {
+      const initialData = {
         show: false,
         selected: 'Default',
         selectedValue: '',
       };
+
+      this.options.forEach((option) => {
+        if (this.defaultSelectedValue === option.value) {
+          initialData.selected = option.name;
+          initialData.selectedValue = option.value;
+        }
+      });
+
+      return initialData;
     },
     watch: {
       selected() {

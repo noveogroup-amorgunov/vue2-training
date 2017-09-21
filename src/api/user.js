@@ -1,4 +1,5 @@
 import request from '@/services/request';
+import { defaultPerPage } from '@/config';
 
 export default {
   /**
@@ -7,7 +8,7 @@ export default {
    * @param {String} orderBy
    */
   users(page = 1, sort = 'desc', orderBy = 'id') {
-    return request.get('/users', { page, sort, order_by: orderBy, per_page: 15 });
+    return request.get('/users', { page, sort, order_by: orderBy, per_page: defaultPerPage });
   },
 
   /**

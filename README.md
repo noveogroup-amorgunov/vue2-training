@@ -4,17 +4,8 @@
 
 ## todolist
 
-- ~modal manager + popup for logout~
-- ~remove transition options in css~
-- ~fix eslint validation in .vue for visual code~
-- ~fix error with not active `beforeEach`/`beforeRouteUpdate` if page in reloaded~
-- ~modal popup for delete items~
-- ~users list~
-- ~grid styles component *IN_WORK*~
-- ~grid component *IN_WORK*~
-- ~pagination component~
-- post and app store modules
-- users editing/deleting
+- users editing/~deleting~
+- post ~and app store modules~
 - post list
 - post likes
 - post editing/deleting

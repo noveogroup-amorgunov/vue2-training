@@ -1,4 +1,5 @@
 import request from '@/services/request';
+import { defaultPerPage } from '@/config';
 
 export default {
   /**
@@ -9,7 +10,7 @@ export default {
    * @param {Boolean} options.liked
    */
   posts(options) {
-    return request.get('/posts', options);
+    return request.get('/posts', { per_page: defaultPerPage, ...options });
   },
 
   /**

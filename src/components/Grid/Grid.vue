@@ -29,6 +29,7 @@
                     </a>
                   </template>
                   <div slot="content" class="settigns cf">
+                    <component :is="editView" :data="entry" @on-edit-view="onEditView" />
                     <h2>Page settings</h2>
                     <input
                         type="text"
@@ -86,6 +87,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import { modalTypes } from '@/store/modules/app';
+  import { defaultPerPage } from '@/config';
   import Flyout from '@/components/Flyout/Flyout.vue';
   import Pagination from '@/components/Grid/Pagination.vue';
 
@@ -108,7 +110,9 @@
       apiDeleteEntityMethod: {
         type: Function,
         default: () => () => {},
-      }
+      },
+      editView: Object,
+      onEditView: Function,
     },
     watch: {
       updateData() {
@@ -120,7 +124,7 @@
       this.columns.forEach((key) => { sortOrders[key] = 'desc'; });
 
       return {
-        itemsPerPage: 15,
+        itemsPerPage: defaultPerPage,
         sortKey: 'id',
         sortOrders,
         error: '',
