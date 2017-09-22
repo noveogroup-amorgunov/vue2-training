@@ -68,7 +68,7 @@
 
   export default {
     name: 'signup-view',
-    title: 'Sign up page',
+    title: 'Sign up',
     components: { FormInput },
     data() {
       return {

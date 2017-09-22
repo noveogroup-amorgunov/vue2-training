@@ -14,4 +14,5 @@ export const errorMessages = {
   'validation.unique': 'This field should be unique',
   'authenticate.credentials_invalid': 'Email or password are invalid',
   'user.forbidden': 'You haven\'t access to do this action',
+  'user.not_found': 'User isn\'t found',
 };

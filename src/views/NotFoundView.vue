@@ -7,3 +7,9 @@
     </p>
   </div>
 </template>
+
+<script>
+  export default {
+    title: 'Page not found',
+  };
+</script>

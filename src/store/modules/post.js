@@ -9,7 +9,7 @@ const defaultMetaState = {
 
 // initial state
 const initialState = {
-  posts: [/* [id: number, liked: boolean]: Post */],
+  posts: [/* [id: number, liked: boolean, title: string, content: string]: Post */],
   meta: { ...defaultMetaState },
   loading: false,
 };

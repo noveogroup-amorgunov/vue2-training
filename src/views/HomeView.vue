@@ -10,6 +10,6 @@
 <script>
 export default {
   name: 'home-view',
-  title: 'Home page',
+  title: 'Home',
 };
 </script>

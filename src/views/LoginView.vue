@@ -59,7 +59,7 @@
   import FormInput from '@/components/Form/FormInput.vue';
 
   export default {
-    title: 'Login page',
+    title: 'Login',
     components: { FormInput },
     data() {
       return {
@@ -93,25 +93,4 @@
       },
     },
   };
-
-/* export default {
-  name: 'user-view',
-
-  computed: {
-    user () {
-      return this.$store.state.users[this.$route.params.id]
-    }
-  }
-  asyncData ({ store, route: { params: { id }}}) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-    });
-    // store.dispatch('FETCH_USER', { id })
-  },
-  title () {
-    return this.user
-      ? this.user.id
-      : 'User not found'
-  }
-} */
 </script>

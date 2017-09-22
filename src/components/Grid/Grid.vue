@@ -17,46 +17,13 @@
         <tbody>
           <tr v-for="entry in data" class="data-grid-item" :key="entry.id">
             <td v-for="(key, index) in columns" :key="index">
-              <template v-if="key == 'id' && isAdmin">
-                <flyout>
-                  <template slot="dropdown-button">
-                    <a title="Click to edit item"
-                      @click.prevent
-                      :href="entry[key]"
-                      class="add-link"
-                      >
-                      {{entry[key]}}
-                    </a>
-                  </template>
-                  <div slot="content" class="settigns cf">
-                    <component :is="editView" :data="entry" @on-edit-view="onEditView" />
-                    <h2>Page settings</h2>
-                    <input
-                        type="text"
-                        label="Page title"
-                        error="false"
-                        message=""
-                        value="Some page name"
-                        placeholder="Placeholder text">
-                    </input>
-                    <input
-                        type="text"
-                        label="Page URL"
-                        error="false"
-                        message=""
-                        value="some-page-name"
-                        placeholder="Placeholder text">
-                    </input>
-                    <input
-                        type="text"
-                        label="Something else"
-                        error="false"
-                        message=""
-                        value="Update this"
-                        placeholder="Placeholder text">
-                    </input>
-                  </div>
-                </flyout>
+              <template v-if="key == 'id'">
+                <a title="Click to show item"
+                  @click="showEntity(entry[key])"
+                  class="add-link"
+                  >
+                  {{entry[key]}}
+                </a>
               </template>
               <template v-else>
                 {{entry[key]}}
@@ -101,7 +68,7 @@
       },
       columns: Array,
       data: Array,
-      updateData: Boolean,
+      updateData: Boolean, // if change with value, data will be fetched again
       entityName: String,
       apiGetEntitiesMethod: {
         type: Function,
@@ -171,12 +138,14 @@
         try {
           this.$bar.start();
           await this.apiDeleteEntityMethod(id);
-          // await this.fetchData();
         } catch (err) {
           this.error = err.errors.pop().message;
         } finally {
           this.$bar.finish();
         }
+      },
+      async showEntity(id) {
+        this.$router.push(`/${this.entityName.toLowerCase()}s/${id}`);
       }
     },
     filters: {

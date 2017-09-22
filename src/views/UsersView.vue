@@ -16,7 +16,7 @@
       :apiDeleteEntityMethod="deleteUser"
       :edit-view="editFormComponent"
       :on-edit-view="() => updateData = !updateData"
-      :columns="columns" />
+      :columns="['id', 'email', 'name', 'role']" />
   </div>
 </template>
 
@@ -42,7 +42,6 @@
         defaultPage: +this.$route.params.page,
         editFormComponent: UserEditForm,
         updateData: false,
-        columns: ['id', 'email', 'name', 'role'],
       };
     },
     computed: {

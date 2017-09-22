@@ -14,6 +14,13 @@ export default {
   /**
    * @param {Number} id
    */
+  getUser(id) {
+    return request.get(`/users/${id}`);
+  },
+
+  /**
+   * @param {Number} id
+   */
   deleteUser(id) {
     return request.delete(`/users/${id}`);
   },

@@ -10,13 +10,15 @@ const defaultMetaState = {
 
 // initial state
 const initialState = {
-  users: [/* [id: number]: User */],
+  users: [/* [id: number, role: string, email: string]: User */],
+  selectedUser: null,
   meta: { ...defaultMetaState },
   loading: false,
 };
 
 const getters = {
   users: state => state.users,
+  selectedUser: state => state.selectedUser,
   meta: state => state.meta,
   loading: state => state.loading,
   getUserByEmail: state => email => state.users.filter(user => user.email === email)[0],
@@ -26,6 +28,10 @@ const types = {
   FETCH_USERS_REQUEST: 'FETCH_USERS_REQUEST',
   FETCH_USERS_SUCCESS: 'FETCH_USERS_SUCCESS',
   FETCH_USERS_FAILURE: 'FETCH_USERS_FAILURE',
+
+  FETCH_USER_REQUEST: 'FETCH_USER_REQUEST',
+  FETCH_USER_SUCCESS: 'FETCH_USER_SUCCESS',
+  FETCH_USER_FAILURE: 'FETCH_USER_FAILURE',
 
   DELETE_USER_REQUEST: 'DELETE_USER_REQUEST',
   DELETE_USER_SUCCESS: 'DELETE_USER_SUCCESS',
@@ -61,6 +67,21 @@ const mutations = {
   [types.FETCH_USERS_FAILURE](state) {
     state.users = [];
     state.meta = defaultMetaState;
+    state.loading = false;
+  },
+
+  /**
+   * Fetch users list request
+   */
+  [types.FETCH_USER_REQUEST](state) {
+    state.loading = true;
+  },
+  [types.FETCH_USER_SUCCESS](state, fetchedUser) {
+    state.selectedUser = fetchedUser;
+    state.loading = false;
+  },
+  [types.FETCH_USER_FAILURE](state) {
+    state.selectedUser = null;
     state.loading = false;
   },
 
@@ -122,6 +143,18 @@ const actions = {
       (err) => {
         commit(types.FETCH_USERS_FAILURE, { err });
         throw err;
+      },
+    );
+  },
+
+  getUser({ commit }, id) {
+    commit(types.FETCH_USER_REQUEST);
+    return userApi.getUser(id).then(
+      (data) => {
+        commit(types.FETCH_USER_SUCCESS, data.user);
+      },
+      (err) => {
+        commit(types.FETCH_USER_FAILURE, { err });
       },
     );
   },

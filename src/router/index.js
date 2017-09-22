@@ -7,6 +7,7 @@ Vue.use(Router);
 
 // route-level code splitting
 const UsersView = () => import('@/views/UsersView.vue');
+const UserView = () => import('@/views/UserView.vue');
 const PostsView = () => import('@/views/PostsView.vue');
 const LoginView = () => import('@/views/LoginView.vue');
 const SignupView = () => import('@/views/SignupView.vue');
@@ -27,8 +28,14 @@ export function createRouter() {
     routes: [
       { path: '/login', name: 'login', component: LoginView },
       { path: '/signup', name: 'signup', component: SignupView },
+
       { path: '/users/page/:page(\\d+)?', name: 'users', component: UsersView, meta: { requiresAuth: true } },
-      { path: '/posts/:page(\\d+)?', name: 'posts', component: PostsView, meta: { requiresAuth: true } },
+      { path: '/users', redirect: '/users/page/1' },
+      { path: '/users/:id(\\d+)', name: 'user', component: UserView, meta: { requiresAuth: true } },
+
+      { path: '/posts/page/:page(\\d+)?', name: 'posts', component: PostsView, meta: { requiresAuth: true } },
+      { path: '/posts', redirect: '/posts/page/1' },
+
       // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true } },
       // { path: '/posts/:id(\\d+)/edit', name: 'post-edit', component: PostEditView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
       // { path: '/posts/:id(\\d+)/create', name: 'post-create', component: PostCreateView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
