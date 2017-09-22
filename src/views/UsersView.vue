@@ -8,6 +8,7 @@
     <h2>Users list</h2>
     <Grid
       entity-name="User"
+      :default-page="defaultPage"
       :meta="meta"
       :data="users"
       :update-data="updateData"
@@ -29,27 +30,19 @@
     name: 'users-view',
     title: 'List of users',
     components: { Grid, UserCreateForm, UserEditForm },
-    asyncData({ store, route: { params: { id } } }) {
+    asyncData({ store, route: { params: { page } } }) {
       // special timeout (1 second) for progress bar testing
       return Promise.all([
-        store.dispatch('user/getUsers'),
+        store.dispatch('user/getUsers', { page }),
         new Promise(res => setTimeout(res, 1e3))
       ]);
     },
     data() {
       return {
+        defaultPage: +this.$route.params.page,
         editFormComponent: UserEditForm,
         updateData: false,
         columns: ['id', 'email', 'name', 'role'],
-        columns2: [
-          {
-            key: 'id',
-            width: '20%',
-            onClick() {
-              /* open modal with user editing */
-            },
-          }
-        ]
       };
     },
     computed: {
@@ -57,9 +50,18 @@
       ...mapGetters('auth', ['isAdmin']),
     },
     methods: {
+      /**
+       * @param {Object} options
+       * @param {Number} options.page
+       * @param {Number} options.orderBy - ordered field
+       * @param {Number} options.sort - asc or desc
+       */
       loadUsers({ page, orderBy, sort } = {}) {
         return this.$store.dispatch('user/getUsers', { page, orderBy, sort });
       },
+      /**
+       * @param {Number} id
+       */
       deleteUser(id) {
         return this.$store.dispatch('user/deleteUser', id);
       }

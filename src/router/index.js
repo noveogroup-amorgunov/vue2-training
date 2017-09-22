@@ -27,7 +27,7 @@ export function createRouter() {
     routes: [
       { path: '/login', name: 'login', component: LoginView },
       { path: '/signup', name: 'signup', component: SignupView },
-      { path: '/users/:page(\\d+)?', name: 'users', component: UsersView, meta: { requiresAuth: true } },
+      { path: '/users/page/:page(\\d+)?', name: 'users', component: UsersView, meta: { requiresAuth: true } },
       { path: '/posts/:page(\\d+)?', name: 'posts', component: PostsView, meta: { requiresAuth: true } },
       // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true } },
       // { path: '/posts/:id(\\d+)/edit', name: 'post-edit', component: PostEditView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },

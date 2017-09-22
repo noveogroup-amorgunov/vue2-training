@@ -113,6 +113,10 @@
       },
       editView: Object,
       onEditView: Function,
+      defaultPage: {
+        type: Number,
+        default: 1,
+      }
     },
     watch: {
       updateData() {
@@ -128,7 +132,7 @@
         sortKey: 'id',
         sortOrders,
         error: '',
-        page: 1,
+        page: this.defaultPage,
       };
     },
     computed: {
@@ -160,6 +164,7 @@
       },
       async changePage(page) {
         this.page = page;
+        this.$router.replace(`/${this.entityName.toLowerCase()}s/page/${page}`);
         return this.fetchData();
       },
       async deleteItem(id) {
