@@ -33,6 +33,9 @@
     asyncData({ store }) {
       return store.dispatch('post/getPosts');
     },
+    props: {
+      type: String,
+    },
     data() {
       return {
         updateData: false,

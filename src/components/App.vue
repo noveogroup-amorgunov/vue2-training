@@ -8,7 +8,7 @@
         </transition>
       </main>
       <footer class="layout-footer">
-        Example created by <a target="blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
+        Example created by <a target="_blank" href="https://github.com/noveogroup-amorgunov">Alexander&nbsp;Morgunov</a>, {{ year }}
       </footer>
     </div>
     <ModalManager />
@@ -63,5 +63,12 @@
   margin-top: var(--space);
   height: 0px;
   visibility: hidden;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .2s ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }
 </style>

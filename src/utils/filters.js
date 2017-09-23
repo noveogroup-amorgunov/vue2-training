@@ -13,7 +13,7 @@ function pluralize(time, label) {
 }
 
 export function timeAgo(time) {
-  const between = (Date.now() - Number(new Date(time))) / 1000;
+  const between = (Date.now() - Number(time)) / 1000;
   if (between < 3600) {
     return pluralize(Math.floor(between / 60), 'minute');
   } else if (between < 86400) {

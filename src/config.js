@@ -5,7 +5,7 @@ export const userRoles = {
   USER: 'user',
 };
 
-export const defaultPerPage = 15;
+export const defaultPerPage = 10;
 
 export const errorMessages = {
   unknownServerError: 'Server is unavailable for current moment',

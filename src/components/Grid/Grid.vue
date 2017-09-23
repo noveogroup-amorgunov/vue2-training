@@ -18,8 +18,8 @@
           <tr v-for="entry in data" class="data-grid-item" :key="entry.id">
             <td v-for="(key, index) in columns" :key="index">
               <template v-if="key == 'id'">
-                <a title="Click to show item"
-                  @click="showEntity(entry[key])"
+                <a :href="getLink(entry[key])" title="Click to show item"
+                  @click.prevent="showEntity(entry[key])"
                   class="add-link"
                   >
                   {{entry[key]}}
@@ -145,7 +145,10 @@
         }
       },
       async showEntity(id) {
-        this.$router.push(`/${this.entityName.toLowerCase()}s/${id}`);
+        this.$router.push(this.getLink(id));
+      },
+      getLink(id) {
+        return `/${this.entityName.toLowerCase()}s/${id}`;
       }
     },
     filters: {

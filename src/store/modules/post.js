@@ -47,6 +47,7 @@ const mutations = {
    * Fetch posts list
    */
   [types.FETCH_POSTS_REQUEST](state) {
+    state.posts = [];
     state.loading = true;
   },
   [types.FETCH_POSTS_SUCCESS](state, { data: { posts, meta }, page, orderBy, sort }) {
@@ -134,9 +135,17 @@ const mutations = {
 };
 
 const actions = {
-  getPosts({ commit }, { page, orderBy, sort } = {}) {
+  getPosts({ commit }, { type, page, orderBy, sort } = {}) {
     commit(types.FETCH_POSTS_REQUEST);
-    return postApi.posts({ page, sort, order_by: orderBy }).then(
+
+    const liked = type === 'liked' ? true : undefined;
+    if (type === 'top') {
+      orderBy = 'total_likes';
+    } else if (type === 'new') {
+      orderBy = 'id';
+    }
+
+    return postApi.posts({ liked, page, sort, order_by: orderBy }).then(
       (data) => {
         commit(types.FETCH_POSTS_SUCCESS, { data, page, orderBy, sort });
       },
@@ -186,7 +195,7 @@ const actions = {
     );
   },
 
-  likePost({ commit }, { id }) {
+  likePost({ commit }, id) {
     commit(types.LIKE_POST_REQUEST);
     return postApi.likePost(id).then(
       (data) => {

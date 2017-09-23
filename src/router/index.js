@@ -13,10 +13,9 @@ const LoginView = () => import('@/views/LoginView.vue');
 const SignupView = () => import('@/views/SignupView.vue');
 const NotFoundView = () => import('@/views/NotFoundView.vue');
 const HomeView = () => import('@/views/HomeView.vue');
+const createPostView = id => () => import('@/views/CreatePostView.js').then(m => m.default(id));
 
 // const PostCreateView = () => import('@/views/PostCreateView.vue');
-// const PostEditView = () => import('@/views/PostEditView.vue');
-// const UserEditView = () => import('@/views/UserEditView.vue');
 
 export function createRouter() {
   return new Router({
@@ -29,15 +28,19 @@ export function createRouter() {
       { path: '/login', name: 'login', component: LoginView },
       { path: '/signup', name: 'signup', component: SignupView },
 
+      { path: '/top/:page(\\d+)?', component: createPostView('new') },
+      { path: '/new/:page(\\d+)?', component: createPostView('new') },
+      { path: '/liked/:page(\\d+)?', component: createPostView('liked') },
+
       { path: '/users/page/:page(\\d+)?', name: 'users', component: UsersView, meta: { requiresAuth: true } },
       { path: '/users', redirect: '/users/page/1' },
       { path: '/users/:id(\\d+)', name: 'user', component: UserView, meta: { requiresAuth: true } },
+      // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true } },
 
       { path: '/posts/page/:page(\\d+)?', name: 'posts', component: PostsView, meta: { requiresAuth: true } },
       { path: '/posts', redirect: '/posts/page/1' },
 
-      // { path: '/users/:id/edit', name: 'user-edit', component: UserEditView, meta: { requiresAuth: true } },
-      // { path: '/posts/:id(\\d+)/edit', name: 'post-edit', component: PostEditView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
+      // { path: '/posts/:id(\\d+)/edit', name: 'post-edit', component: PostEditView, meta: { requiresAuth: true,  } },
       // { path: '/posts/:id(\\d+)/create', name: 'post-create', component: PostCreateView, meta: { requiresAuth: true, roles: [userRoles.ADMIN] } },
       { path: '/', name: 'home', component: HomeView },
       { path: '*', name: 'not-found', component: NotFoundView },
