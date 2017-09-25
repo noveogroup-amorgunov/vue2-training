@@ -67,7 +67,7 @@
   import FormInput from '@/components/Form/FormInput.vue';
 
   export default {
-    name: 'signup-view',
+    name: 'signup',
     title: 'Sign up',
     components: { FormInput },
     data() {

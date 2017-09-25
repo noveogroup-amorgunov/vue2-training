@@ -1,5 +1,5 @@
 import authApi from '@/api/auth';
-import authService from '@/services/auth';
+import authService from '@/utils/auth';
 import { userRoles } from '@/config';
 
 // initial state

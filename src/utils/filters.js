@@ -21,3 +21,7 @@ export function timeAgo(time) {
   }
   return pluralize(Math.floor(between / 86400), 'day');
 }
+
+export function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

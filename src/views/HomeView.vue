@@ -9,16 +9,16 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
-    name: 'home-view',
+    name: 'home',
     title: 'Home',
     computed: {
       ...mapGetters('auth', ['isLoggedIn']),
     },
-    beforeCreate() {
-      if (this.$store) {
+    beforeMount() {
+      if (this.isLoggedIn) {
         this.$router.replace('/top');
       }
     },

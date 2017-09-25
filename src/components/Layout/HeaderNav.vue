@@ -1,7 +1,7 @@
 <template>
   <header class="layout-header header cf">
     <div class="header-inner">
-      <router-link to="/" exact>
+      <router-link :to="isLoggedIn ? '/top' : '/'" exact>
         <div class="header-logo">v</div>
       </router-link>
       <span>
@@ -15,8 +15,9 @@
           <router-link to="/top">Top</router-link>
           <router-link to="/new">New</router-link>
           <router-link to="/liked">Liked</router-link>
-          <!--router-link to="/posts">Posts</router-link>
-          <router-link to="/users">Users</router-link--> 
+          <template v-if="isAdmin">
+            <router-link to="/backoffice"><strong>Backoffice</strong></router-link>
+          </template>
         </template>
       </span>
       <span class="header-vue">

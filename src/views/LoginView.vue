@@ -60,6 +60,7 @@
 
   export default {
     title: 'Login',
+    name: 'login',
     components: { FormInput },
     data() {
       return {

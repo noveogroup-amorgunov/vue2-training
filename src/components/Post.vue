@@ -9,11 +9,11 @@
     </div>
     <div class="posts-item-meta">
       <span class="by">
-        by <router-link :to="'/users/' + item.user.id"><strong>{{ item.user.name }}</strong></router-link> | 
+        by <router-link :to="'/user/' + item.user.id"><strong>{{ item.user.name }}</strong></router-link> | 
       </span>
       <span class="time">
         {{ getLocalDate(item.created_at) | timeAgo }} ago | 
-        Klassov:
+        Likes:
         <strong>
           <a :class="{ liked: item.liked }" href="" @click.prevent="like(item)">
             {{ item.total_likes }}
@@ -69,6 +69,11 @@
   }
 
   .posts-item {
+    // @include tablet-landscape-and-below {
+    //   margin: 8px 0;
+    //   min-height: 120px;
+    // }
+
     position: relative;
     background: #f4f4f4;
     padding: 8px 12px;

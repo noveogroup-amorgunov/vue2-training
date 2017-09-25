@@ -1,4 +1,4 @@
-import authService from '@/services/auth';
+import authService from '@/utils/auth';
 
 export const authMiddleware = () => (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);

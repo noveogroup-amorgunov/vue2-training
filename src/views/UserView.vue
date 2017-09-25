@@ -24,7 +24,7 @@
         ? `User profile ${this.selectedUser.id}`
         : 'User not found';
     },
-    name: 'user-view',
+    name: 'user',
     computed: {
       ...mapGetters('user', ['selectedUser']),
     },

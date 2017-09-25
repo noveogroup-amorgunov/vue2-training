@@ -1,4 +1,4 @@
-import request from '@/services/request';
+import request from '@/utils/request';
 import { defaultPerPage } from '@/config';
 
 export default {

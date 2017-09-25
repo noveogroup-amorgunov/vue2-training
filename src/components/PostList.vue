@@ -1,6 +1,6 @@
 <template>
   <div class="posts-view">
-    <div class="posts-list-nav">
+    <div class="posts-list-nav" v-if="displayedPage > 0">
       <div>
         <router-link v-if="page > 1" :to="'/' + type + '/' + (page - 1)">&lt; back</router-link>
         <a v-else class="disabled">&lt; back</a>
@@ -10,10 +10,13 @@
       </div>
     </div>
     <transition :name="transition">
-      <div class="posts-list" :key="displayedPage" v-if="displayedPage > 0">
+      <div class="posts-list" :key="displayedPage" v-if="maxPage > 0">
         <transition-group name="item">
           <post v-for="item in displayedItems" :key="item.id" :item="item" />
         </transition-group>
+      </div>
+      <div v-else>
+        {{ type | capitalize }} posts aren't found
       </div>
     </transition>
   </div>
