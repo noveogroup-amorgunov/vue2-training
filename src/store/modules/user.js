@@ -71,7 +71,7 @@ const mutations = {
   },
 
   /**
-   * Fetch users list request
+   * Fetch user by id
    */
   [types.FETCH_USER_REQUEST](state) {
     state.loading = true;
@@ -175,8 +175,8 @@ const actions = {
   editUser({ commit }, { id, data }) {
     commit(types.EDIT_USER_REQUEST);
     return userApi.editUser(id, data).then(
-      (data) => {
-        commit(types.EDIT_USER_SUCCESS, data.user);
+      (result) => {
+        commit(types.EDIT_USER_SUCCESS, result.user);
       },
       (err) => {
         commit(types.EDIT_USER_FAILURE, { err });

@@ -12,7 +12,6 @@ function send(config) {
   return axios(Object.assign({}, config, { url, headers })).then(
     response => response.data.data,
     (responseWithError) => {
-      // console.log(responseWithError.response);
       const error = new Error();
       error.errors = [];
       try {
@@ -23,13 +22,13 @@ function send(config) {
          */
         if (typeof responseErr === 'string') {
           if (!errorMessages[responseErr]) {
-            console.warn(`Response error ${responseErr} isn't found`);
+            console.warn(`Response error ${responseErr} isn't found`); // eslint-disable-line no-console
           }
           error.errors.push({ key: 'common', message: errorMessages[responseErr] });
         } else {
           Object.keys(responseErr).forEach((key) => {
             if (!errorMessages[responseErr[key]]) {
-              console.warn(`Response error ${responseErr[key]} isn't found for key = ${key}`);
+              console.warn(`Response error ${responseErr[key]} isn't found for key = ${key}`); // eslint-disable-line no-console
             }
             error.errors.push({ key, message: errorMessages[responseErr[key]] });
           });

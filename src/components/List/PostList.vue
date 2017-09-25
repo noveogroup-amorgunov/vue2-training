@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  import Post from '@/components/Post.vue';
+  import { mapGetters } from 'vuex';
+  import Post from './Post.vue';
 
   export default {
     components: { Post },
@@ -65,7 +65,7 @@
               this.$router.replace(`/${this.type}/1`);
               return;
             }
-            this.transition = (from === -1) ? null : (to > from ? 'slide-left' : 'slide-right');
+            this.transition = (from === -1) ? null : (to > from ? 'slide-left' : 'slide-right'); // eslint-disable-line no-nested-ternary
             this.displayedPage = to;
             this.displayedItems = this.posts;
             this.$bar.finish();

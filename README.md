@@ -1,14 +1,6 @@
-# vue-test
+# vue2-traning
 
-> A Vue test
-
-## todolist
-
-- users editing/~deleting~
-- post ~and app store modules~
-- post list
-- post likes
-- post editing/deleting
+> A Vue2 traning with vue-router/vuex/vee-validate!
 
 ## Instalation
 
@@ -41,7 +33,7 @@ $ npm run build
 
 To validate (through eslint) javascript code in `.vue` files, add follow lines in `Preferences > Setting`:
 
-```
+```json
 "eslint.validate": [
     "javascript",
     "javascriptreact",

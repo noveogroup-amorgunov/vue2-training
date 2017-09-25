@@ -18,7 +18,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import HeaderNav from '@/components/Layout/HeaderNav.vue';
-  import ModalManager from '@/components/Modal/ModalManager.vue';
+  import ModalManager from '@/components/ui/Modal/ModalManager.vue';
 
   export default {
     name: 'app',

@@ -5,51 +5,24 @@
 
     <div class="add-fields cf">
       <form-input
-        name="email"
-        label="Email"
-        v-validate="'required|email'"
+        name="title"
+        label="Title"
+        v-validate="'required|min:3'"
         data-vv-value-path="innerValue"
-        v-model="user.email"
-        :default-value="user.email"
-        :has-error="errors.has('email')"
-        :error-text="errors.first('email')"
-        placeholder="admin@vuejs.com" />
+        v-model="post.title"
+        :default-value="post.title"
+        :has-error="errors.has('title')"
+        :error-text="errors.first('title')" />
 
       <form-input
-        type="password"
-        name="password"
-        label="Password"
-        v-validate="'min:3'"
+        name="content"
+        label="Content"
+        v-validate="'required|min:3'"
         data-vv-value-path="innerValue"
-        :default-value="user.password"
-        v-model="user.password"
-        :has-error="errors.has('password')"
-        :error-text="errors.first('password')"
-        placeholder="Password" />
-    </div>
-
-    <div class="add-fields cf">
-      <form-input
-        name="name"
-        label="Name"
-        v-validate="'required|alpha_spaces'"
-        data-vv-value-path="innerValue"
-        :default-value="user.name"
-        v-model="user.name"
-        :has-error="errors.has('name')"
-        :error-text="errors.first('name')"
-        placeholder="Name" />
-
-      <form-select
-        name="role"
-        label="Role"
-        :on-change="changeRole"
-        :has-error="errors.has('role')"
-        :error-text="errors.first('role')"
-        :options="roles"
-        :selected-value="user.role"
-        :default-value="user.role"
-      />
+        :default-value="post.content"
+        v-model="post.content"
+        :has-error="errors.has('content')"
+        :error-text="errors.first('content')" />
     </div>
 
     <div :class="{ 'form-error': errors.has('common') }">
@@ -65,7 +38,7 @@
         @click.prevent="submitForm()"
         type="submit"
         class="button button-action button-left">
-        Edit user
+        Edit post
       </button>
 
       <button
@@ -95,26 +68,17 @@
     },
     data() {
       return {
-        roles: [{
-          name: 'User',
-          value: 'user',
-        }, {
-          name: 'Admin',
-          value: 'admin',
-        }],
-        user: {
-          role: this.data.role,
-          email: this.data.email,
-          password: this.data.password,
-          name: this.data.name,
+        post: {
+          title: this.data.title,
+          content: this.data.content,
         }
       };
     },
     computed: {
-      ...mapGetters('user', ['loading']),
+      ...mapGetters('post', ['loading']),
     },
     methods: {
-      ...mapActions('user', ['editUser']),
+      ...mapActions('post', ['editPost']),
       goBack() {
         this.$router.back();
       },
@@ -123,18 +87,7 @@
         try {
           if (await this.$validator.validateAll()) {
             this.$bar.start();
-
-            const data = { ...this.user };
-
-            if (!this.user.password) {
-              data.password = undefined;
-            }
-            if (data.email === this.data.email) {
-              data.email = undefined;
-            }
-
-            await this.editUser({ id: this.data.id, data });
-            this.$emit('edit-user');
+            await this.editPost({ id: this.data.id, data: this.post });
             this.goBack();
           }
         } catch (err) {

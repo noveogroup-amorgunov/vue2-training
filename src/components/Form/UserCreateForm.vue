@@ -68,8 +68,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import FormSelect from '@/components/Form/FormSelect.vue';
-  import FormInput from '@/components/Form/FormInput.vue';
+  import FormSelect from '@/components/ui/Form/FormSelect.vue';
+  import FormInput from '@/components/ui/Form/FormInput.vue';
 
   export default {
     components: { FormSelect, FormInput },

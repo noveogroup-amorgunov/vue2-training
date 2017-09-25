@@ -10,12 +10,14 @@ const defaultMetaState = {
 // initial state
 const initialState = {
   posts: [/* [id: number, liked: boolean, title: string, content: string]: Post */],
+  selectedPost: null,
   meta: { ...defaultMetaState },
   loading: false,
 };
 
 const getters = {
   posts: state => state.posts,
+  selectedPost: state => state.selectedPost,
   meta: state => state.meta,
   loading: state => state.loading,
 };
@@ -24,6 +26,10 @@ const types = {
   FETCH_POSTS_REQUEST: 'FETCH_POSTS_REQUEST',
   FETCH_POSTS_SUCCESS: 'FETCH_POSTS_SUCCESS',
   FETCH_POSTS_FAILURE: 'FETCH_POSTS_FAILURE',
+
+  FETCH_POST_REQUEST: 'FETCH_POST_REQUEST',
+  FETCH_POST_SUCCESS: 'FETCH_POST_SUCCESS',
+  FETCH_POST_FAILURE: 'FETCH_POST_FAILURE',
 
   DELETE_POST_REQUEST: 'DELETE_POST_REQUEST',
   DELETE_POST_SUCCESS: 'DELETE_POST_SUCCESS',
@@ -47,7 +53,6 @@ const mutations = {
    * Fetch posts list
    */
   [types.FETCH_POSTS_REQUEST](state) {
-    state.posts = [];
     state.loading = true;
   },
   [types.FETCH_POSTS_SUCCESS](state, { data: { posts, meta }, page, orderBy, sort }) {
@@ -64,6 +69,21 @@ const mutations = {
   [types.FETCH_POSTS_FAILURE](state) {
     state.posts = [];
     state.meta = defaultMetaState;
+    state.loading = false;
+  },
+
+  /**
+   * Fetch post by id
+   */
+  [types.FETCH_POST_REQUEST](state) {
+    state.loading = true;
+  },
+  [types.FETCH_POST_SUCCESS](state, fetchedPost) {
+    state.selectedPost = fetchedPost;
+    state.loading = false;
+  },
+  [types.FETCH_POST_FAILURE](state) {
+    state.selectedPost = null;
     state.loading = false;
   },
 
@@ -140,9 +160,9 @@ const actions = {
 
     const liked = type === 'liked' ? true : undefined;
     if (type === 'top') {
-      orderBy = 'total_likes';
+      orderBy = 'total_likes'; // eslint-disable-line no-param-reassign
     } else if (type === 'new') {
-      orderBy = 'id';
+      orderBy = 'id'; // eslint-disable-line no-param-reassign
     }
 
     return postApi.posts({ liked, page, sort, order_by: orderBy }).then(
@@ -152,6 +172,18 @@ const actions = {
       (err) => {
         commit(types.FETCH_POSTS_FAILURE, { err });
         throw err;
+      },
+    );
+  },
+
+  getPost({ commit }, id) {
+    commit(types.FETCH_POST_REQUEST);
+    return postApi.getPost(id).then(
+      (data) => {
+        commit(types.FETCH_POST_SUCCESS, data.post);
+      },
+      (err) => {
+        commit(types.FETCH_POST_FAILURE, { err });
       },
     );
   },
@@ -172,8 +204,8 @@ const actions = {
   editPost({ commit }, { id, data }) {
     commit(types.EDIT_POST_REQUEST);
     return postApi.editPost(id, data).then(
-      (data) => {
-        commit(types.EDIT_POST_SUCCESS, data.post);
+      (result) => {
+        commit(types.EDIT_POST_SUCCESS, result.post);
       },
       (err) => {
         commit(types.EDIT_POST_FAILURE, { err });

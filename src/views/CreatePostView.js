@@ -1,4 +1,4 @@
-import ItemList from '@/components/PostList.vue';
+import ItemList from '@/components/List/PostList.vue';
 import { capitalize } from '@/utils/filters';
 
 export default function createPostView(type) {

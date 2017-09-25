@@ -1,38 +1,37 @@
 <template>
   <div class="user-view">
-    <template v-if="selectedUser">
-      <h1>User: #{{ selectedUser.id }}</h1>
+    <template v-if="selectedPost">
+      <h1>{{ selectedPost.title }}</h1>
+      <div>
+        {{ selectedPost.content }}
+      </div>
       <ul class="meta">
-        <li><span class="label">Created:</span> {{ new Date(selectedUser.created_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Updated:</span> {{ new Date(selectedUser.updated_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Email:</span> {{ selectedUser.email }}</li>
-        <li><span class="label">Name:</span> {{ selectedUser.name }}</li>
+        <li><span class="label">Created:</span> {{ new Date(selectedPost.created_at.date) | timeAgo }} ago</li>
+        <li><span class="label">Updated:</span> {{ new Date(selectedPost.updated_at.date) | timeAgo }} ago</li>
+        <li><span class="label">Author:</span> <router-link :to="'/user/' + selectedPost.user.id"><strong>{{ selectedPost.user.name }}</strong></router-link></li>
       </ul>
     </template>
     <template v-else>
-      <h1>User not found.</h1>
+      <h1>Post not found.</h1>
     </template>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
     title() {
-      return this.selectedUser
-        ? `User profile ${this.selectedUser.id}`
-        : 'User not found';
+      return this.selectedPost
+        ? this.selectedPost.title
+        : 'Post not found';
     },
-    name: 'user',
+    name: 'post',
     computed: {
-      ...mapGetters('user', ['selectedUser']),
-    },
-    methods: {
-      ...mapActions('user', ['getUser']),
+      ...mapGetters('post', ['selectedPost']),
     },
     asyncData({ store, route: { params: { id } } }) {
-      store.dispatch('user/getUser', id);
+      store.dispatch('post/getPost', id);
     },
   };
 </script>

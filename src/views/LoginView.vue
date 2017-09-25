@@ -56,7 +56,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import FormInput from '@/components/Form/FormInput.vue';
+  import FormInput from '@/components/ui/Form/FormInput.vue';
 
   export default {
     title: 'Login',

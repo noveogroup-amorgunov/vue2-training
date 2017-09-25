@@ -1,13 +1,8 @@
 <template>
-  <div class="user-view">
+  <div class="user-edit-view">
     <template v-if="selectedUser">
       <h1>User: #{{ selectedUser.id }}</h1>
-      <ul class="meta">
-        <li><span class="label">Created:</span> {{ new Date(selectedUser.created_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Updated:</span> {{ new Date(selectedUser.updated_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Email:</span> {{ selectedUser.email }}</li>
-        <li><span class="label">Name:</span> {{ selectedUser.name }}</li>
-      </ul>
+      <user-edit-form :data="selectedUser" />
     </template>
     <template v-else>
       <h1>User not found.</h1>
@@ -17,14 +12,15 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+  import UserEditForm from '@/components/Form/UserEditForm.vue';
 
   export default {
     title() {
       return this.selectedUser
-        ? `User profile ${this.selectedUser.id}`
+        ? `Edit user ${this.selectedUser.id}`
         : 'User not found';
     },
-    name: 'user',
+    components: { UserEditForm },
     computed: {
       ...mapGetters('user', ['selectedUser']),
     },
@@ -36,10 +32,3 @@
     },
   };
 </script>
-
-<style lang="scss">
-  ul.meta {
-    background: #eee;
-    padding: 5px;
-  }
-</style>

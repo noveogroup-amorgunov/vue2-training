@@ -1,8 +1,8 @@
 {
-  "name": "vue-test",
-  "description": "A Vue test",
+  "name": "vue2-traning",
+  "description": "A Vue2 traning",
   "version": "1.0.0",
-  "author": "Aleksandr Morgunov <aleksandr.morgunov@noveogroup.com>",
+  "author": "Alexander Morgunov <aleksandr.morgunov@noveogroup.com>",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",

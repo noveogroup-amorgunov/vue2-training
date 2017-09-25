@@ -2,7 +2,7 @@
   <div class="posts-item">
     <div class="heart" :class="{ liked: item.liked }" @click="like(item)"></div>
     <div class="posts-item-title">
-      <router-link :to="'/posts/' + item.id">{{ item.title }}</router-link>
+      <router-link :to="'/post/' + item.id">{{ item.title }}</router-link>
     </div>
     <div class="posts-item-content">
       Sint inventore occaecati sit eos nemo est. Itaque tenetur perspiciatis quia accusamus dicta. Corporis illo laudantium pariatur deserunt ex dolorem.
@@ -39,8 +39,8 @@
       },
       async like(item) {
         await this.$store.dispatch('post/likePost', item.id);
-        item.liked = !item.liked;
-        item.total_likes = item.total_likes + (item.liked ? 1 : -1);
+        item.liked = !item.liked; // eslint-disable-line no-param-reassign
+        item.total_likes += item.liked ? 1 : -1; // eslint-disable-line no-param-reassign
       }
     }
   };

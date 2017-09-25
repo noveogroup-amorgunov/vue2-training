@@ -14,6 +14,13 @@ export default {
   },
 
   /**
+   * @param {Number} id
+   */
+  getPost(id) {
+    return request.get(`/posts/${id}`);
+  },
+
+  /**
    * @param {Object} data
    * @param {String} data.title
    * @param {String} data.content

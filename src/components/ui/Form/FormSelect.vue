@@ -42,7 +42,6 @@
       errorText: String,
       options: Array,
       onChange: Function,
-      defaultSelectedValue: String,
     },
     data() {
       const initialData = {
@@ -52,7 +51,7 @@
       };
 
       this.options.forEach((option) => {
-        if (this.defaultSelectedValue === option.value) {
+        if (this.defaultValue === option.value) {
           initialData.selected = option.name;
           initialData.selectedValue = option.value;
         }

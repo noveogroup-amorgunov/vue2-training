@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="!data.length"><i>{{entityName}}s hasn't existed yet.</i></p>
+    <p v-if="!data.length"><i>{{entityName}}s hasn't existed yet or couldn't load.</i></p>
     <template v-else>
       <p><i v-if="meta.total">Total items: <strong>{{meta.total}}</strong></i>, <i>Current page: <strong>{{page}}</strong></i></p>
       <table class="data-grid">
@@ -11,29 +11,39 @@
                 {{ key | capitalize }}&nbsp;<i :class="sortOrders[key] === 'desc' ? 'icon-down' : 'icon-up'"></i>
               </span>
             </th>
-            <th v-if="isAdmin"></th>
+            <!--th></th-->
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="entry in data" class="data-grid-item" :key="entry.id">
             <td v-for="(key, index) in columns" :key="index">
               <template v-if="key == 'id'">
-                <a :href="getLink(entry[key])" title="Click to show item"
-                  @click.prevent="showEntity(entry[key])"
-                  class="add-link"
-                  >
+                <a :href="getLink(entry[key])" title="Click to show item" class="add-link">
                   {{entry[key]}}
                 </a>
+              </template>
+              <template v-else-if="key == 'created_at'">
+                {{ new Date(entry[key].date) | timeAgo }} ago
               </template>
               <template v-else>
                 {{entry[key]}}
               </template>
             </td>
-            <td v-if="isAdmin">
+            <!--td>
               <div class="modal-close add-remove" @click="confirmDelete(entry.id)">
                 <span></span>
                 <span></span>
               </div>
+            </td-->
+            <td>
+              <dropdown
+                :icon="'icon-more'"
+                class="dropdown-left"
+                :items="[
+                  { text: 'Edit item', action: () => goToEdit(entry.id)},
+                  { text: 'Delete item', action: () => confirmDelete(entry.id)},
+                ]" />
             </td>
           </tr>
         </tbody>
@@ -52,15 +62,16 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
   import { modalTypes } from '@/store/modules/app';
   import { defaultPerPage } from '@/config';
-  import Flyout from '@/components/Flyout/Flyout.vue';
-  import Pagination from '@/components/Grid/Pagination.vue';
+  import Flyout from '@/components/ui/Flyout/Flyout.vue';
+  import Dropdown from '@/components/ui/Dropdown/Dropdown.vue';
+  import Pagination from '@/components/ui/Grid/Pagination.vue';
 
   export default {
     name: 'data-grid',
-    components: { Flyout, Pagination },
+    components: { Flyout, Pagination, Dropdown },
     props: {
       meta: {
         type: Object,
@@ -102,9 +113,6 @@
         page: this.defaultPage,
       };
     },
-    computed: {
-      ...mapGetters('auth', ['isAdmin']),
-    },
     methods: {
       ...mapActions('app', ['showModal']),
       confirmDelete(id) {
@@ -131,7 +139,6 @@
       },
       async changePage(page) {
         this.page = page;
-        this.$router.replace(`/${this.entityName.toLowerCase()}s/page/${page}`);
         return this.fetchData();
       },
       async deleteItem(id) {
@@ -144,11 +151,11 @@
           this.$bar.finish();
         }
       },
-      async showEntity(id) {
-        this.$router.push(this.getLink(id));
-      },
       getLink(id) {
-        return `/${this.entityName.toLowerCase()}s/${id}`;
+        return `/${this.entityName.toLowerCase()}/${id}`;
+      },
+      goToEdit(id) {
+        this.$router.push(`${this.getLink(id)}/edit`);
       }
     },
   };

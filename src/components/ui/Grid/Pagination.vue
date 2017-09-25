@@ -6,10 +6,10 @@
       </a>
     </li>
     <li class="page-item" v-for="(index, n) in paginationRange" :class="{ active: activePage(n + 1) }" v-bind:key="index">
-      <a class="page-link" href="#" @click.prevent="pageChanged(n + 1)">{{ n + 1 }}</a>
+      <a class="page-link" href="" @click.prevent="pageChanged(n + 1)">{{ n + 1 }}</a>
     </li>
     <li class="page-item" :class="{ disabled: disabled('last') }">
-      <a class="page-link" href="#" @click.prevent="pageChanged(lastPage)" aria-label="Next">
+      <a class="page-link" href="" @click.prevent="pageChanged(lastPage)" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
@@ -19,7 +19,6 @@
 <script>
   export default {
     props: {
-      // Current Page
       currentPage: {
         type: Number,
         required: true
@@ -43,11 +42,14 @@
           : Math.floor(this.totalItems / this.itemsPerPage) + 1;
       },
       paginationRange() {
-        const start =
-          this.currentPage - (this.visiblePages / 2) <= 0
-          ? 1 : this.currentPage + this.visiblePages / 2 > this.lastPage
-          ? this.lowerBound(this.lastPage - this.visiblePages + 1, 1)
-          : Math.ceil(this.currentPage - this.visiblePages / 2)
+        let start;
+        if (this.currentPage - (this.visiblePages / 2) <= 0) {
+          start = 1;
+        } else if (this.currentPage + (this.visiblePages / 2) > this.lastPage) {
+          start = this.lowerBound(this.lastPage - (this.visiblePages + 1), 1);
+        } else {
+          start = Math.ceil(this.currentPage - (this.visiblePages / 2));
+        }
 
         const range = [];
 
@@ -82,6 +84,12 @@
 
 <style lang="scss">
   .pagination {
+
+    &:after {
+      display: block;
+      clear: both;
+      content: '';
+    }
     margin: 20px 0;
 
     li {
