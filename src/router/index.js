@@ -8,6 +8,7 @@ Vue.use(Router);
 // route-level code splitting
 const UsersView = () => import('@/views/UsersView.vue');
 const UserView = () => import('@/views/UserView.vue');
+const PostView = () => import('@/views/PostView.vue');
 const PostsView = () => import('@/views/PostsView.vue');
 const LoginView = () => import('@/views/LoginView.vue');
 const SignupView = () => import('@/views/SignupView.vue');
