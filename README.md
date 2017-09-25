@@ -2,6 +2,8 @@
 
 > A Vue2 traning with vue-router/vuex/vee-validate!
 
+![](https://github.com/noveogroup-amorgunov/vue2-training/raw/master/public/preview.png)
+
 ## Instalation
 
 - Create app key in http://rest-api.noveogroup.com.
