@@ -12,8 +12,6 @@ const bar = new Vue(ProgressBar).$mount();
 Vue.prototype.$bar = bar;
 document.body.appendChild(bar.$el);
 
-// TODO: add $bar component to requestService
-
 // register global utility filters.
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
