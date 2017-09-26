@@ -3,8 +3,8 @@
     <template v-if="selectedUser">
       <h1>User: #{{ selectedUser.id }}</h1>
       <ul class="meta">
-        <li><span class="label">Created:</span> {{ new Date(selectedUser.created_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Updated:</span> {{ new Date(selectedUser.updated_at.date) | timeAgo }} ago</li>
+        <li><span class="label">Created:</span> {{ selectedUser.created_at.date | timeAgo }} ago</li>
+        <li><span class="label">Updated:</span> {{ selectedUser.updated_at.date | timeAgo }} ago</li>
         <li><span class="label">Email:</span> {{ selectedUser.email }}</li>
         <li><span class="label">Name:</span> {{ selectedUser.name }}</li>
       </ul>

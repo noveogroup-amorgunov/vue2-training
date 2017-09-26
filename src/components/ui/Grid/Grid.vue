@@ -24,7 +24,7 @@
                 </a>
               </template>
               <template v-else-if="key == 'created_at'">
-                {{ new Date(entry[key].date) | timeAgo }} ago
+                {{ entry[key].date | timeAgo }} ago
               </template>
               <template v-else>
                 {{entry[key]}}

@@ -6,8 +6,8 @@
         {{ selectedPost.content }}
       </div>
       <ul class="meta">
-        <li><span class="label">Created:</span> {{ new Date(selectedPost.created_at.date) | timeAgo }} ago</li>
-        <li><span class="label">Updated:</span> {{ new Date(selectedPost.updated_at.date) | timeAgo }} ago</li>
+        <li><span class="label">Created:</span> {{ selectedPost.created_at.date | timeAgo }} ago</li>
+        <li><span class="label">Updated:</span> {{ selectedPost.updated_at.date | timeAgo }} ago</li>
         <li><span class="label">Author:</span> <router-link :to="'/user/' + selectedPost.user.id"><strong>{{ selectedPost.user.name }}</strong></router-link></li>
       </ul>
     </template>

@@ -5,14 +5,14 @@
       <router-link :to="'/post/' + item.id">{{ item.title }}</router-link>
     </div>
     <div class="posts-item-content">
-      Sint inventore occaecati sit eos nemo est. Itaque tenetur perspiciatis quia accusamus dicta. Corporis illo laudantium pariatur deserunt ex dolorem.
+      {{ item.content | crop(140) }}
     </div>
     <div class="posts-item-meta">
       <span class="by">
         by <router-link :to="'/user/' + item.user.id"><strong>{{ item.user.name }}</strong></router-link> | 
       </span>
       <span class="time">
-        {{ getLocalDate(item.created_at) | timeAgo }} ago | 
+        {{ item.created_at.date | timeAgo }} ago | 
         Likes:
         <strong>
           <a :class="{ liked: item.liked }" href="" @click.prevent="like(item)">
@@ -28,15 +28,7 @@
   export default {
     name: 'posts-item',
     props: ['item'],
-    computed: {
-      url() {
-        return `/posts/${this.item.id}`;
-      }
-    },
     methods: {
-      getLocalDate({ date, timezone_type: hoursOffset }) {
-        return +(new Date(date)) + (hoursOffset * 60 * 60 * 1000);
-      },
       async like(item) {
         await this.$store.dispatch('post/likePost', item.id);
         item.liked = !item.liked; // eslint-disable-line no-param-reassign
