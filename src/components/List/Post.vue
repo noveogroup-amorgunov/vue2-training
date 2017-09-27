@@ -61,10 +61,10 @@
   }
 
   .posts-item {
-    // @include tablet-landscape-and-below {
-    //   margin: 8px 0;
-    //   min-height: 120px;
-    // }
+    @include tablet-landscape-and-below {
+      margin: 10px 5px 0px 5px;
+      min-height: 120px;
+    }
 
     position: relative;
     background: #f4f4f4;
@@ -73,6 +73,8 @@
     float: left;
     margin: 10px 10px 5px 10px;
     height: 120px;
+    display: flex;
+    flex-direction: column;
 
     &-title {
       font-weight: bold;
@@ -89,6 +91,7 @@
     &-meta {
       font-size: 12px;
       color: #666;
+      margin-top: auto;
 
       .liked {
         color: #e91e63;
